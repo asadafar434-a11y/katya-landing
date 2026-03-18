@@ -1,5 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import svgPaths from "../imports/svg-are6q647vg";
+import {
+  GraduationCap,
+  Building2,
+  BriefcaseBusiness,
+  ShoppingBag,
+  Dumbbell,
+  Theater,
+  UtensilsCrossed,
+  Home,
+} from "lucide-react";
 import imgMotionImg from "../assets/figma/eaa78224c1974336e9569a3de872efd11b38eede.png";
 import imgMotionImg1 from "../assets/figma/6f8aa6e99331d89a2b603a64cb9fc08afd48d117.png";
 import imgImg from "../assets/figma/4b4e7ebacda091e49ac45b9c07bb7e2f2811bcfa.png";
@@ -15,8 +25,10 @@ import imgImg6 from "../assets/figma/f3be4cf1ef97adc392cde42f4fda364118585941.pn
 import imgImg7 from "../assets/figma/39a6cd04526fde7b1db41654cff0b154bac7fa56.png";
 import imgImage from "../assets/figma/c05c3cb162faebf9de2b56030eedc3d21a8313f7.png";
 
-const CONTAINER = "w-full max-w-[1200px] mx-auto px-4 md:px-[40px] lg:px-[80px]";
-const CONTAINER_NO_PX = "w-full max-w-[1200px] mx-auto";
+// Unified content width. Side paddings should be noticeable but not "too wide".
+// clamp(16px, 4vw, 64px): mobile 16px, grows with viewport, capped at 64px.
+const CONTAINER = "w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)]";
+const CONTAINER_NO_PX = "w-full max-w-[1280px] mx-auto";
 
 const scrollToSection = (id: string) => {
   const el = document.getElementById(id);
@@ -343,7 +355,7 @@ function Header() {
           visible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0',
         ].join(' ')}
       >
-        <div className="flex items-center justify-between px-4 md:px-[40px] py-[20px]">
+        <div className="flex items-center justify-between w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)] py-[20px]">
           <p className="font-['Space_Grotesk',sans-serif] font-bold leading-[18px] text-[#111] text-[12px] tracking-[0.24px] whitespace-nowrap">Интерио</p>
 
           {/* Desktop nav */}
@@ -402,7 +414,7 @@ function Header() {
 ──────────────────────────────────────────────────────── */
 function HeroSection() {
   return (
-    <div className={`flex flex-col gap-6 md:gap-[32px] items-start pt-[80px] md:pt-[100px] ${CONTAINER}`}>
+    <div className={`flex flex-col gap-5 md:gap-[24px] items-start pt-[72px] md:pt-[88px] ${CONTAINER}`}>
       <div className="flex flex-col gap-4 md:gap-[20px] items-start w-full">
         <div className="flex flex-col gap-4 md:gap-[20px] items-start w-full">
 
@@ -423,10 +435,10 @@ function HeroSection() {
 
           {/* Two images — on mobile only 1 photo so CTA fits on screen */}
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-0 md:justify-between w-full">
-            <div className="h-[160px] md:h-[377px] w-full md:w-[49.5%] overflow-hidden">
+            <div className="h-[150px] md:h-[320px] w-full md:w-[49.5%] overflow-hidden">
               <img alt="" className="w-full h-full object-cover" src={imgMotionImg} />
             </div>
-            <div className="hidden md:block h-[377px] w-[49.5%] overflow-hidden">
+            <div className="hidden md:block h-[320px] w-[49.5%] overflow-hidden">
               <img alt="" className="w-full h-full object-cover" src={imgMotionImg1} />
             </div>
           </div>
@@ -487,6 +499,12 @@ function CategoryCard({ icon, title, subtitle, border }: {
 }
 
 function AboutSection() {
+  const iconProps = {
+    size: 36,
+    strokeWidth: 1.15,
+    className: "text-[rgba(0,0,0,0.45)]",
+  } as const;
+
   return (
     <div id="about" className={`flex flex-col gap-4 md:gap-[20px] items-start ${CONTAINER}`}>
       <div className="flex flex-col gap-3 md:gap-[20px] items-start">
@@ -495,17 +513,17 @@ function AboutSection() {
       </div>
       {/* row 1 */}
       <div className="grid grid-cols-2 md:grid-cols-4 w-full">
-        <CategoryCard border="b-l-t"   icon={<GraduationCapIcon />} title="Образование"    subtitle="школы, ВУЗы, детсады" />
-        <CategoryCard border="b-l-t"   icon={<BuildingIcon />}      title="Медицина"        subtitle="клиники, больницы, лаборатории" />
-        <CategoryCard border="b-l-t"   icon={<BriefcaseIcon />}     title="Офисы"           subtitle="БЦ, коворкинги, open space" />
-        <CategoryCard border="b-l-t-r" icon={<ShoppingBagIcon />}   title="ТРЦ"             subtitle="моллы, галереи, шоурумы" />
+        <CategoryCard border="b-l-t"   icon={<GraduationCap {...iconProps} />} title="Образование" subtitle="школы, ВУЗы, детсады" />
+        <CategoryCard border="b-l-t"   icon={<Building2 {...iconProps} />}     title="Медицина"    subtitle="клиники, больницы, лаборатории" />
+        <CategoryCard border="b-l-t"   icon={<BriefcaseBusiness {...iconProps} />} title="Офисы"   subtitle="БЦ, коворкинги, open space" />
+        <CategoryCard border="b-l-t-r" icon={<ShoppingBag {...iconProps} />}   title="ТРЦ"         subtitle="моллы, галереи, шоурумы" />
       </div>
       {/* row 2 */}
       <div className="grid grid-cols-2 md:grid-cols-4 w-full">
-        <CategoryCard border="b-l"   icon={<DumbbellIcon />}  title="Спорт"           subtitle="арены, стадионы, фитнес" />
-        <CategoryCard border="b-l"   icon={<TheaterIcon />}   title="Культура"        subtitle="театры, музеи, кино" />
-        <CategoryCard border="b-l"   icon={<ForkIcon />}      title="HORECA"          subtitle="отели, рестораны, кафе" />
-        <CategoryCard border="b-l-r" icon={<HomeIcon />}      title="Жилые комплексы" subtitle="МОПы, холлы, подъезды" />
+        <CategoryCard border="b-l"   icon={<Dumbbell {...iconProps} />}        title="Спорт"           subtitle="арены, стадионы, фитнес" />
+        <CategoryCard border="b-l"   icon={<Theater {...iconProps} />}         title="Культура"        subtitle="театры, музеи, кино" />
+        <CategoryCard border="b-l"   icon={<UtensilsCrossed {...iconProps} />} title="HORECA"          subtitle="отели, рестораны, кафе" />
+        <CategoryCard border="b-l-r" icon={<Home {...iconProps} />}            title="Жилые комплексы" subtitle="МОПы, холлы, подъезды" />
       </div>
     </div>
   );
@@ -663,8 +681,8 @@ function StatItem({ target, suffix, label }: {
     ? count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     : String(count);
   return (
-    <div ref={ref} className="flex flex-col gap-[4px] md:gap-[8px] items-center flex-1 min-w-0">
-      <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[32px] md:text-[48px] text-center w-full text-[#111]">
+    <div ref={ref} className="flex flex-col gap-[4px] md:gap-[8px] items-center flex-1 min-w-[110px] md:min-w-[160px]">
+      <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[32px] md:text-[48px] text-center w-full text-[#111] whitespace-nowrap">
         {fmt}{suffix}
       </p>
       <p className="font-['Raleway',sans-serif] font-extralight leading-[1.5] text-[10px] md:text-[12px] text-[rgba(0,0,0,0.5)] w-full text-center">{label}</p>
@@ -675,8 +693,8 @@ function StatItem({ target, suffix, label }: {
 function StatYears() {
   const { ref, count } = useCountUp(10, 1600);
   return (
-    <div ref={ref} className="flex flex-col gap-[4px] md:gap-[8px] items-center flex-1 min-w-0">
-      <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[#111] text-[32px] md:text-[48px] text-center w-full">
+    <div ref={ref} className="flex flex-col gap-[4px] md:gap-[8px] items-center flex-1 min-w-[110px] md:min-w-[160px]">
+      <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[#111] text-[32px] md:text-[48px] text-center w-full whitespace-nowrap">
         {count} лет
       </p>
       <p className="font-['Raleway',sans-serif] font-extralight leading-[1.5] text-[10px] md:text-[12px] text-[rgba(0,0,0,0.5)] uppercase w-full text-center">НА РЫНКЕ С 2015 ГОДА</p>
@@ -823,6 +841,7 @@ function ContactSection() {
   const [form, setForm] = useState({ name: '', phone: '', comment: '' });
   const [errors, setErrors] = useState({ name: '', phone: '' });
   const [touched, setTouched] = useState({ name: false, phone: false });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
 
   const validate = (f: typeof form) => ({
@@ -843,16 +862,26 @@ function ContactSection() {
     setErrors(v => ({ ...v, [k]: validate(form)[k] }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newErrors = validate(form);
     setErrors(newErrors);
     setTouched({ name: true, phone: true });
     if (newErrors.name || newErrors.phone) return;
-    setSent(true);
-    setForm({ name: '', phone: '', comment: '' });
-    setTouched({ name: false, phone: false });
-    setErrors({ name: '', phone: '' });
-    setTimeout(() => setSent(false), 4000);
+
+    try {
+      setIsSubmitting(true);
+
+      // TODO: connect real backend/telegram/email later
+      await new Promise((r) => setTimeout(r, 450));
+
+      setSent(true);
+      setForm({ name: '', phone: '', comment: '' });
+      setTouched({ name: false, phone: false });
+      setErrors({ name: '', phone: '' });
+      window.setTimeout(() => setSent(false), 4500);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -860,14 +889,14 @@ function ContactSection() {
       <div className={`flex flex-col gap-4 md:gap-[20px] items-start py-4 md:py-[40px] ${CONTAINER}`}>
         <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Оставить заявку</p>
 
-        <div className="flex flex-col md:flex-row gap-6 md:gap-[32px] items-start md:items-end w-full">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-[32px] items-start md:items-start w-full">
 
         {/* Image — hidden on small mobile, shown from sm */}
-        <div className="hidden sm:block flex-1 h-[280px] md:h-[536px] overflow-hidden relative w-full">
+        <div className="hidden sm:block flex-1 h-[280px] md:h-[536px] md:mt-[12px] overflow-hidden relative w-full">
           <img alt="" className="absolute inset-0 w-full h-full object-cover" src={imgImage} />
           <div
-            className="absolute bg-[rgba(248,248,247,0.15)] backdrop-blur-[2px] flex flex-col gap-[10px] md:gap-[12px] items-start pl-[16px] md:pl-[22px] py-[14px] md:py-[18px] rounded-[10px] w-[calc(100%-32px)] md:w-[350px]"
-            style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+            className="absolute bg-[rgba(17,17,17,0.38)] backdrop-blur-[10px] border border-[rgba(255,255,255,0.22)] shadow-[0_18px_50px_rgba(0,0,0,0.25)] flex flex-col gap-[10px] md:gap-[12px] items-start pl-[16px] md:pl-[22px] py-[14px] md:py-[18px] rounded-[10px] w-[calc(100%-32px)] md:w-[350px]"
+            style={{ left: '50%', bottom: '24px', transform: 'translateX(-50%)' }}
           >
             {[
               'Анализ проектной документации',
@@ -883,7 +912,13 @@ function ContactSection() {
         </div>
 
         {/* Form */}
-        <div className="flex flex-1 flex-col gap-6 md:gap-[32px] items-start w-full min-w-0">
+        <form
+          className="flex flex-1 flex-col gap-6 md:gap-[32px] items-start w-full min-w-0"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void handleSubmit();
+          }}
+        >
           <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[24px] md:text-[36px]">
             Получите расчет материалов для вашего проекта
           </p>
@@ -902,6 +937,7 @@ function ContactSection() {
                   value={form.name}
                   onChange={set('name')}
                   onBlur={blur('name')}
+                  disabled={isSubmitting}
                   className="w-full px-[10px] py-[14px] md:py-[16px] font-['Raleway',sans-serif] font-light text-[#111] text-[12px] placeholder-[#8e8e8e] bg-transparent outline-none rounded-[8px]"
                 />
               </div>
@@ -919,6 +955,7 @@ function ContactSection() {
                   value={form.phone}
                   onChange={set('phone')}
                   onBlur={blur('phone')}
+                  disabled={isSubmitting}
                   className="w-full px-[10px] py-[14px] md:py-[16px] font-['Raleway',sans-serif] font-light text-[#111] text-[12px] placeholder-[#8e8e8e] bg-transparent outline-none rounded-[8px]"
                 />
               </div>
@@ -935,6 +972,7 @@ function ContactSection() {
                   placeholder="Тип объекта, площадь, сроки..."
                   value={form.comment}
                   onChange={set('comment')}
+                  disabled={isSubmitting}
                   className="w-full h-full px-[10px] py-[14px] md:py-[16px] font-['Raleway',sans-serif] font-light text-[12px] placeholder-[#8e8e8e] bg-transparent outline-none resize-none rounded-[8px]"
                 />
               </div>
@@ -942,12 +980,17 @@ function ContactSection() {
           </div>
 
           <button
-            onClick={handleSubmit}
-            className={`h-[52px] md:h-[60px] rounded-[100px] w-full transition-all duration-300 flex gap-[4px] items-center justify-center ${
+            type="submit"
+            disabled={isSubmitting}
+            className={`h-[52px] md:h-[60px] rounded-[100px] w-full transition-all duration-300 flex gap-[4px] items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed ${
               sent ? 'bg-[#22c55e] hover:bg-[#16a34a]' : 'bg-[#111] hover:bg-[#333]'
             }`}
           >
-            {sent ? (
+            {isSubmitting ? (
+              <p className="font-['Raleway',sans-serif] font-medium text-white text-[14px] md:text-[16px] text-center whitespace-nowrap">
+                ОТПРАВЛЯЕМ...
+              </p>
+            ) : sent ? (
               <>
                 <svg className="w-[20px] h-[20px] shrink-0" fill="none" viewBox="0 0 20 20">
                   <path d="M4 10l4.5 4.5L16 6" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -961,7 +1004,7 @@ function ContactSection() {
               </>
             )}
           </button>
-        </div>
+        </form>
         </div>
       </div>
     </div>
