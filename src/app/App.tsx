@@ -67,13 +67,13 @@ function useCountUp(target: number, duration = 1800) {
 /* ────────────────────────────────────────────────────────
    ICONS
 ──────────────────────────────────────────────────────── */
-function ArrowUpRight({ color = '#403D3A' }: { color?: string }) {
+function ArrowUpRight({ color }: { color?: string }) {
   return (
     <div className="relative shrink-0 size-[20px]">
       <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-        <path d={svgPaths.p75bbac0} stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.08333" />
-        <path d={svgPaths.p173e4d00} fill={color} />
-        <path d={svgPaths.p3908d100} stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.08333" />
+        <path d={svgPaths.p75bbac0} stroke={color ?? 'currentColor'} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.08333" />
+        <path d={svgPaths.p173e4d00} fill={color ?? 'currentColor'} />
+        <path d={svgPaths.p3908d100} stroke={color ?? 'currentColor'} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.08333" />
       </svg>
     </div>
   );
@@ -449,10 +449,18 @@ function HeroSection() {
           <div className="flex flex-col md:flex-row gap-4 md:gap-[24px] items-start md:items-center w-full md:w-auto">
             <button
               onClick={() => scrollToSection('contacts')}
-              className="flex gap-[4px] h-[52px] md:h-[60px] items-center justify-center px-[24px] md:p-[10px] rounded-[100px] w-full md:w-[291px] border border-[rgba(0,0,0,0.25)] hover:bg-black hover:text-white hover:border-black transition-all duration-200 group shrink-0"
+              className="group relative overflow-hidden flex gap-[6px] h-[52px] md:h-[60px] items-center justify-center px-[24px] md:p-[10px] rounded-[100px] w-full md:w-[291px] border border-[rgba(0,0,0,0.25)] bg-white text-[#2b2a2a] transition-[border-color,color,transform,box-shadow] duration-250 ease-out hover:text-white hover:border-black hover:shadow-[0_14px_30px_rgba(0,0,0,0.18)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.14)] shrink-0"
             >
-              <ArrowUpRight />
-              <p className="font-['Raleway',sans-serif] font-medium text-[#2b2a2a] text-[14px] md:text-[16px] text-center whitespace-nowrap group-hover:text-white">ОСТАВИТЬ ЗАЯВКУ</p>
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 origin-left scale-x-0 bg-black transition-transform duration-500 ease-out group-hover:scale-x-100"
+              />
+              <span className="relative z-10 flex gap-[6px] items-center">
+                <ArrowUpRight />
+              <p className="font-['Raleway',sans-serif] font-medium text-[14px] md:text-[16px] text-center whitespace-nowrap">
+                ОСТАВИТЬ ЗАЯВКУ
+              </p>
+              </span>
             </button>
             <p className="font-['Raleway',sans-serif] font-extralight leading-[21px] text-[#2b2b2b] text-[13px] md:text-[14px] md:w-[586px]">
               Работаем с застройщиками и проектировщиками по всей России. Подбираем решения, оптимизируем бюджет и сопровождаем проект до завершения строительства.
@@ -843,6 +851,7 @@ function ContactSection() {
   const [touched, setTouched] = useState({ name: false, phone: false });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+  const [toast, setToast] = useState(false);
 
   const validate = (f: typeof form) => ({
     name:  f.name.trim().length < 2 ? 'Введите имя (минимум 2 символа)' : '',
@@ -875,10 +884,12 @@ function ContactSection() {
       await new Promise((r) => setTimeout(r, 450));
 
       setSent(true);
+      setToast(true);
       setForm({ name: '', phone: '', comment: '' });
       setTouched({ name: false, phone: false });
       setErrors({ name: '', phone: '' });
       window.setTimeout(() => setSent(false), 4500);
+      window.setTimeout(() => setToast(false), 4500);
     } finally {
       setIsSubmitting(false);
     }
@@ -913,7 +924,7 @@ function ContactSection() {
 
         {/* Form */}
         <form
-          className="flex flex-1 flex-col gap-6 md:gap-[32px] items-start w-full min-w-0"
+          className="flex flex-1 flex-col gap-6 md:gap-[32px] items-start w-full min-w-0 relative"
           onSubmit={(e) => {
             e.preventDefault();
             void handleSubmit();
@@ -979,31 +990,54 @@ function ContactSection() {
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className={`h-[52px] md:h-[60px] rounded-[100px] w-full transition-all duration-300 flex gap-[4px] items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed ${
-              sent ? 'bg-[#22c55e] hover:bg-[#16a34a]' : 'bg-[#111] hover:bg-[#333]'
-            }`}
-          >
-            {isSubmitting ? (
-              <p className="font-['Raleway',sans-serif] font-medium text-white text-[14px] md:text-[16px] text-center whitespace-nowrap">
-                ОТПРАВЛЯЕМ...
-              </p>
-            ) : sent ? (
-              <>
-                <svg className="w-[20px] h-[20px] shrink-0" fill="none" viewBox="0 0 20 20">
-                  <path d="M4 10l4.5 4.5L16 6" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <p className="font-['Raleway',sans-serif] font-medium text-white text-[14px] md:text-[16px] text-center whitespace-nowrap">ЗАЯВКА ОТПРАВЛЕНА</p>
-              </>
-            ) : (
-              <>
-                <ArrowUpRight color="#F2F2F2" />
-                <p className="font-['Raleway',sans-serif] font-medium text-[#fcf8f8] text-[14px] md:text-[16px] text-center whitespace-nowrap">ОТПРАВИТЬ ЗАЯВКУ</p>
-              </>
+          <div className="relative w-full">
+            {toast && (
+              <div
+                aria-live="polite"
+                className="fixed left-1/2 top-[53%] -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
+              >
+                <div className="bg-[linear-gradient(135deg,rgba(255,255,255,0.22),rgba(255,255,255,0.10))] backdrop-blur-[16px] border border-[rgba(255,255,255,0.35)] rounded-[18px] px-[18px] py-[14px] md:px-[26px] md:py-[16px] shadow-[0_20px_70px_rgba(0,0,0,0.16)] max-w-[560px]">
+                  <p className="font-['Raleway',sans-serif] font-normal text-[#111] text-[14px] md:text-[16px] leading-[1.35]">
+                    Наш специалист свяжется с вами, уточнит параметры объекта и подготовит расчет.
+                  </p>
+                </div>
+              </div>
             )}
-          </button>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`h-[52px] md:h-[60px] rounded-[100px] w-full flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed transition-[transform,box-shadow,background-color] duration-260 ease-out ${
+                sent
+                  ? 'bg-[#22c55e] hover:bg-[#16a34a]'
+                  : 'bg-[#111] text-[#fcf8f8] hover:shadow-[0_14px_30px_rgba(0,0,0,0.35)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.28)]'
+              }`}
+            >
+              {isSubmitting ? (
+                <p className="font-['Raleway',sans-serif] font-medium text-white text-[14px] md:text-[16px] text-center whitespace-nowrap">
+                  ОТПРАВЛЯЕМ...
+                </p>
+              ) : sent ? (
+                <>
+                  <svg className="w-[20px] h-[20px] shrink-0" fill="none" viewBox="0 0 20 20">
+                    <path d="M4 10l4.5 4.5L16 6" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <p className="font-['Raleway',sans-serif] font-medium text-white text-[14px] md:text-[16px] text-center whitespace-nowrap">
+                    ЗАЯВКА ОТПРАВЛЕНА
+                  </p>
+                </>
+              ) : (
+                <>
+                  <span className="relative z-10 flex gap-[6px] items-center justify-center transition-colors duration-400 ease-out">
+                    <ArrowUpRight />
+                    <p className="font-['Raleway',sans-serif] font-medium text-[14px] md:text-[16px] text-center whitespace-nowrap">
+                      ОТПРАВИТЬ ЗАЯВКУ
+                    </p>
+                  </span>
+                </>
+              )}
+            </button>
+          </div>
         </form>
         </div>
       </div>
@@ -1036,10 +1070,12 @@ function Footer() {
           </div>
           <button
             onClick={() => scrollToSection('contacts')}
-            className="bg-white h-[44px] md:h-[48px] rounded-[100px] w-full md:w-[233px] flex gap-[4px] items-center justify-center hover:bg-gray-100 transition-colors shrink-0"
+            className="bg-white h-[44px] md:h-[48px] rounded-[100px] w-full md:w-[233px] flex gap-[6px] items-center justify-center hover:bg-gray-100 transition-colors shrink-0 text-[#2b2a2a]"
           >
             <ArrowUpRight />
-            <p className="font-['Raleway',sans-serif] font-medium text-[#2b2a2a] text-[14px] md:text-[16px] text-center whitespace-nowrap">ОСТАВИТЬ ЗАЯВКУ</p>
+            <p className="font-['Raleway',sans-serif] font-medium text-[#2b2a2a] text-[14px] md:text-[16px] text-center whitespace-nowrap">
+              ОСТАВИТЬ ЗАЯВКУ
+            </p>
           </button>
         </div>
       </div>
