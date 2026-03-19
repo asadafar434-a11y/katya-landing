@@ -355,7 +355,7 @@ function Header() {
           visible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0',
         ].join(' ')}
       >
-        <div className="flex items-center justify-between w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)] py-[20px]">
+        <div className="flex items-center justify-between w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)] py-[20px] text-[14px]">
           <p className="font-['Space_Grotesk',sans-serif] font-bold leading-[18px] text-[#111] text-[12px] tracking-[0.24px] whitespace-nowrap">Интерио</p>
 
           {/* Desktop nav */}
@@ -364,7 +364,7 @@ function Header() {
               <button
                 key={id}
                 onClick={() => handleNav(id)}
-                className="font-['Raleway',sans-serif] font-light text-[16px] text-[rgba(0,0,0,0.48)] hover:text-[#111] transition-colors duration-200"
+                className="font-['Raleway',sans-serif] font-light text-[14px] text-[rgba(0,0,0,0.48)] hover:text-[#111] transition-colors duration-200"
               >
                 {label}
               </button>
@@ -712,9 +712,9 @@ function StatYears() {
 
 function StatsCard() {
   return (
-    <div className="bg-white relative w-full">
+    <div className="bg-white relative w-full overflow-hidden">
       <div className="absolute inset-0 pointer-events-none border border-[#eaeaea]" />
-      <div className="flex items-center justify-between p-[16px] md:p-[24px] gap-2">
+      <div className="flex flex-col sm:flex-row items-center justify-between p-[16px] md:p-[24px] gap-4 sm:gap-2">
         <StatItem target={200}     suffix="+" label="Реализованных объектов" />
         <StatItem target={1000000} suffix="+" label="м² поставленных материалов" />
         <StatYears />
@@ -1053,7 +1053,7 @@ function Footer() {
     <div className="bg-[#111] flex flex-col items-center justify-end overflow-hidden relative w-full">
 
       {/* big ИНТЕРИО text — desktop only */}
-      <div className="hidden md:block relative w-full h-[227px] border-b-[0.8px] border-[rgba(255,255,255,0.08)]">
+      <div className="hidden md:block relative w-full h-[227px] border-b-[0.8px] border-[rgba(255,255,255,0.08)] overflow-hidden">
         <div className="flex flex-col items-start pb-[0.8px] pt-[48px] px-[24px] size-full relative">
           <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[189px] text-[#4e4e4e] text-[215px] tracking-[-8.6px] uppercase whitespace-nowrap">ИНТЕРИО</p>
         </div>
@@ -1081,10 +1081,10 @@ function Footer() {
       </div>
 
       {/* bottom bar */}
-      <div className="relative w-full flex items-center py-4 md:h-[46px]">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-3 md:gap-0 px-4 md:px-[40px]">
-          <p className="font-['Raleway',sans-serif] font-normal text-[9px] md:text-[9.6px] text-[rgba(255,255,255,0.25)] whitespace-nowrap">© 2025 ИНТЕРИО · Все права защищены</p>
-          <div className="flex gap-[20px] md:gap-[24px] items-center">
+      <div className="relative w-full flex items-center py-4 md:h-[46px] min-w-0">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-3 md:gap-0 px-4 md:px-[40px] min-w-0">
+          <p className="font-['Raleway',sans-serif] font-normal text-[9px] md:text-[9.6px] text-[rgba(255,255,255,0.25)]">© 2025 ИНТЕРИО · Все права защищены</p>
+          <div className="flex flex-wrap gap-x-[20px] gap-y-1 md:gap-[24px] items-center">
             {[['Каталог', 'catalog'], ['О нас', 'about'], ['Контакты', 'contacts']].map(([label, id]) => (
               <button key={id} onClick={() => scrollToSection(id)}
                 className="font-['Raleway',sans-serif] font-medium text-[9px] md:text-[9.6px] text-[rgba(255,255,255,0.3)] hover:text-white transition-colors">
@@ -1092,7 +1092,7 @@ function Footer() {
               </button>
             ))}
           </div>
-          <p className="font-['Raleway',sans-serif] font-normal text-[9px] md:text-[9.6px] text-[rgba(255,255,255,0.2)] whitespace-nowrap">Политика конфиденциальности</p>
+          <p className="font-['Raleway',sans-serif] font-normal text-[9px] md:text-[9.6px] text-[rgba(255,255,255,0.2)]">Политика конфиденциальности</p>
         </div>
       </div>
     </div>
