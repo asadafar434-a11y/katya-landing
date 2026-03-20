@@ -1,3 +1,11 @@
+@keyframes catalog-spin {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 6px));
+  }
+}
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -179,3 +187,4 @@
     line-height: 1.5;
   }
 }
+

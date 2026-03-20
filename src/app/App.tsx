@@ -293,10 +293,6 @@ function HeadphonesIcon() {
   </svg></div>;
 }
 
-function Dot() {
-  return <div className="bg-[rgba(0,0,0,0.25)] rounded-[1.5px] shrink-0 size-[3px]" />;
-}
-
 /* ────────────────────────────────────────────────────────
    HEADER
 ──────────────────────────────────────────────────────── */
@@ -484,20 +480,12 @@ function HeroSection() {
 /* ────────────────────────────────────────────────────────
    ABOUT / CATEGORIES
 ──────────────────────────────────────────────────────── */
-type CardBorder = 'b-l-t' | 'b-l-t-r' | 'b-l' | 'b-l-r';
-function CategoryCard({ icon, title, subtitle, border }: {
-  icon: React.ReactNode; title: string; subtitle: string; border: CardBorder;
+function CategoryCard({ icon, title, subtitle }: {
+  icon: React.ReactNode; title: string; subtitle: string;
 }) {
-  const cls = {
-    'b-l-t':   'border-t border-b border-l',
-    'b-l-t-r': 'border',
-    'b-l':     'border-b border-l',
-    'b-l-r':   'border-b border-l border-r',
-  }[border];
   return (
-    <div className="flex-1 min-h-px min-w-0 relative">
-      <div className={`absolute inset-0 pointer-events-none border-[#eaeaea] ${cls}`} />
-      <div className="flex flex-col gap-[8px] items-start p-[16px] md:p-[24px] relative w-full">
+    <div className="h-full w-full min-h-[140px] min-w-px relative">
+      <div className="content-stretch flex flex-col gap-[8px] items-start p-[16px] md:p-[24px] relative w-full h-full">
         {icon}
         <p className="font-['Cormorant_Garamond',sans-serif] font-medium leading-[normal] text-[#111] text-[16px] md:text-[20px]">{title}</p>
         <p className="font-['Raleway',sans-serif] font-light leading-[normal] text-[#111] text-[10px] md:text-[12px]">{subtitle}</p>
@@ -519,19 +507,15 @@ function AboutSection() {
         <p className="font-['Raleway',sans-serif] font-semibold leading-[normal] text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Поставляем для</p>
         <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[26px] md:text-[36px]">Коммерческих и социальных объектов</p>
       </div>
-      {/* row 1 */}
-      <div className="grid grid-cols-2 md:grid-cols-4 w-full">
-        <CategoryCard border="b-l-t"   icon={<GraduationCap {...iconProps} />} title="Образование" subtitle="школы, ВУЗы, детсады" />
-        <CategoryCard border="b-l-t"   icon={<Building2 {...iconProps} />}     title="Медицина"    subtitle="клиники, больницы, лаборатории" />
-        <CategoryCard border="b-l-t"   icon={<BriefcaseBusiness {...iconProps} />} title="Офисы"   subtitle="БЦ, коворкинги, open space" />
-        <CategoryCard border="b-l-t-r" icon={<ShoppingBag {...iconProps} />}   title="ТРЦ"         subtitle="моллы, галереи, шоурумы" />
-      </div>
-      {/* row 2 */}
-      <div className="grid grid-cols-2 md:grid-cols-4 w-full">
-        <CategoryCard border="b-l"   icon={<Dumbbell {...iconProps} />}        title="Спорт"           subtitle="арены, стадионы, фитнес" />
-        <CategoryCard border="b-l"   icon={<Theater {...iconProps} />}         title="Культура"        subtitle="театры, музеи, кино" />
-        <CategoryCard border="b-l"   icon={<UtensilsCrossed {...iconProps} />} title="HORECA"          subtitle="отели, рестораны, кафе" />
-        <CategoryCard border="b-l-r" icon={<Home {...iconProps} />}            title="Жилые комплексы" subtitle="МОПы, холлы, подъезды" />
+      <div className="grid grid-cols-2 md:grid-cols-4 w-full items-stretch border border-[#eaeaea] divide-x divide-y divide-[#eaeaea]">
+        <CategoryCard icon={<GraduationCap {...iconProps} />} title="Образование" subtitle="школы, ВУЗы, детсады" />
+        <CategoryCard icon={<Building2 {...iconProps} />} title="Медицина" subtitle="клиники, больницы, лаборатории" />
+        <CategoryCard icon={<BriefcaseBusiness {...iconProps} />} title="Офисы" subtitle="БЦ, коворкинги, open space" />
+        <CategoryCard icon={<ShoppingBag {...iconProps} />} title="ТРЦ" subtitle="моллы, галереи, шоурумы" />
+        <CategoryCard icon={<Dumbbell {...iconProps} />} title="Спорт" subtitle="арены, стадионы, фитнес" />
+        <CategoryCard icon={<Theater {...iconProps} />} title="Культура" subtitle="театры, музеи, кино" />
+        <CategoryCard icon={<UtensilsCrossed {...iconProps} />} title="HORECA" subtitle="отели, рестораны, кафе" />
+        <CategoryCard icon={<Home {...iconProps} />} title="Жилые комплексы" subtitle="МОПы, холлы, подъезды" />
       </div>
     </div>
   );
@@ -762,16 +746,83 @@ function ProjectsSection() {
 /* ────────────────────────────────────────────────────────
    MATERIALS CATALOG
 ──────────────────────────────────────────────────────── */
-function MaterialList({ title, items }: { title: string; items: string[] }) {
+type CatalogCard = {
+  title: string;
+  description: string;
+  image: string;
+};
+
+const CATALOG_CARDS: CatalogCard[] = [
+  {
+    title: "Металлические потолки",
+    description: "Реечные, кассетные и грильято для общественных и коммерческих пространств.",
+    image: imgMotionImg2,
+  },
+  {
+    title: "Акустические системы",
+    description: "Потолки и острова для снижения шума в офисах, школах и медцентрах.",
+    image: imgMotionImg3,
+  },
+  {
+    title: "Линолеум",
+    description: "Гетерогенный, гомогенный и натуральный линолеум под высокий трафик.",
+    image: imgMotionImg4,
+  },
+  {
+    title: "LVT покрытия",
+    description: "Износостойкие модульные покрытия с быстрым монтажом и простой заменой.",
+    image: imgImg1,
+  },
+  {
+    title: "Спортивные покрытия",
+    description: "Безопасные и упругие решения для залов, арен и фитнес-пространств.",
+    image: imgImg2,
+  },
+  {
+    title: "Системы входных зон",
+    description: "Грязезащитные системы и ковролин для чистоты и долговечности интерьера.",
+    image: imgImg3,
+  },
+];
+
+function RotatingCatalog() {
+  const [paused, setPaused] = useState(false);
+  const cards = [...CATALOG_CARDS, ...CATALOG_CARDS];
+
   return (
-    <div className="relative w-full pb-[12px] border-b-[0.8px] border-[rgba(0,0,0,0.06)]">
-      <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[#111] text-[16px] md:text-[18px] tracking-[-0.176px] mb-[8px]">{title}</p>
-      {items.map((item, i) => (
-        <div key={i} className="flex gap-[8px] items-center h-[17px] mb-[3px]">
-          <Dot />
-          <p className="font-['Raleway',sans-serif] font-normal text-[11px] md:text-[12px] text-[rgba(0,0,0,0.5)]">{item}</p>
-        </div>
-      ))}
+    <div className="relative w-full overflow-hidden">
+      <div
+        className="flex w-max gap-3 md:gap-4 py-1"
+        style={{ animation: "catalog-spin 32s linear infinite", animationPlayState: paused ? "paused" : "running" }}
+      >
+        {cards.map((card, idx) => (
+          <article
+            key={`${card.title}-${idx}`}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            className="group relative h-[154px] md:h-[200px] w-[147px] md:w-[200px] shrink-0 overflow-hidden border border-[rgba(0,0,0,0.08)] bg-white flex flex-col"
+          >
+            <div className="relative flex-1 w-full overflow-hidden">
+              <img alt={card.title} className="h-full w-full object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.03] group-hover:brightness-[0.88]" src={card.image} />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08)_30%,rgba(0,0,0,0.64)_100%)]" />
+
+              <div className="absolute left-3 right-3 md:left-4 md:right-4 bottom-3 md:bottom-4 rounded-[8px] border border-[rgba(255,255,255,0.22)] bg-[rgba(17,17,17,0.74)] px-3 py-2 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                <p className="font-['Raleway',sans-serif] font-light text-[11px] md:text-[12px] leading-[1.4] text-[rgba(255,255,255,0.92)]">
+                  {card.description}
+                </p>
+              </div>
+            </div>
+
+            <div className="w-full bg-[rgba(17,17,17,0.92)] px-2 py-1.5 md:px-3 md:py-2">
+              <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[12px] md:text-[14px] text-white leading-[1.1] whitespace-nowrap overflow-hidden text-ellipsis">
+                {card.title}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-[56px] md:w-[96px] bg-[linear-gradient(90deg,rgba(17,17,17,0.62)_0%,rgba(17,17,17,0)_100%)]" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-[56px] md:w-[96px] bg-[linear-gradient(270deg,rgba(17,17,17,0.62)_0%,rgba(17,17,17,0)_100%)]" />
     </div>
   );
 }
@@ -784,23 +835,8 @@ function MaterialsSection() {
         <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[24px] md:text-[36px]">Материалы для коммерческих и социальных объектов</p>
       </div>
 
-      <div className="flex flex-col md:flex-row items-start w-full border-t-[0.8px] border-[rgba(0,0,0,0.08)]">
-        <div className="flex flex-col gap-[14px] pt-[20px] md:pt-[28px] md:pr-[40px] pb-[0.8px] w-full md:w-1/2 border-b-[0.8px] md:border-b-[0.8px] border-[rgba(0,0,0,0.06)]">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.35)] tracking-[1.152px] uppercase">Потолочные системы</p>
-          <div className="flex flex-col gap-[12px] w-full">
-            <MaterialList title="Металлические потолки" items={['реечные потолки', 'кассетные потолки', 'грильято']} />
-            <MaterialList title="Акустические системы"  items={['модульные акустические потолки', 'акустические острова']} />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-[14px] pt-[20px] md:pt-[28px] md:pl-[40px] pb-[0.8px] w-full md:w-1/2 border-b-[0.8px] md:border-l-[0.8px] border-[rgba(0,0,0,0.06)]">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.35)] tracking-[1.152px] uppercase">Коммерческие напольные покрытия</p>
-          <div className="flex flex-col gap-[12px] w-full">
-            <MaterialList title="Линолеум"             items={['гетерогенный линолеум', 'гомогенный линолеум', 'натуральный линолеум']} />
-            <MaterialList title="Специальные покрытия" items={['LVT покрытия', 'спортивные покрытия', 'токопроводящие и токорассеивающие', 'противоскользящие покрытия', 'акустический линолеум']} />
-            <MaterialList title="Системы входных зон"  items={['грязезащитные входные системы', 'иглопробивной ковролин']} />
-          </div>
-        </div>
+      <div className="w-full border-t-[0.8px] border-[rgba(0,0,0,0.08)] pt-[16px] md:pt-[22px]">
+        <RotatingCatalog />
       </div>
     </div>
   );
