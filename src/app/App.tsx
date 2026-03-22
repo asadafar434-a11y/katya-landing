@@ -351,27 +351,30 @@ function Header() {
           visible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0',
         ].join(' ')}
       >
-        <div className="flex items-center justify-between w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)] py-[20px] text-[14px]">
-          <p className="font-['Space_Grotesk',sans-serif] font-bold leading-[18px] text-[#111] text-[12px] tracking-[0.24px] whitespace-nowrap">Интерио</p>
+        <div className="flex items-center justify-between w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)] py-[16px] md:py-[20px] text-[14px] gap-3 min-w-0">
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="shrink-0 text-left font-['Cormorant_Garamond',sans-serif] font-light text-[#111] text-[20px] sm:text-[22px] md:text-[24px] leading-none tracking-[-0.5px] whitespace-nowrap transition-opacity duration-200 hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111]/20 rounded-sm"
+            aria-label="Интерио — наверх"
+          >
+            Интерио
+          </button>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex gap-[32px] items-center whitespace-nowrap">
+          <nav className="hidden md:flex items-center justify-end gap-[clamp(16px,2.5vw,32px)] whitespace-nowrap min-w-0">
             {navItems.map(({ label, id }) => (
               <button
                 key={id}
                 onClick={() => handleNav(id)}
-                className="font-['Raleway',sans-serif] font-light text-[14px] text-[rgba(0,0,0,0.48)] hover:text-[#111] transition-colors duration-200"
+                className="font-['Raleway',sans-serif] font-light text-[13px] lg:text-[14px] text-[rgba(0,0,0,0.48)] hover:text-[#111] transition-colors duration-200 shrink-0"
               >
                 {label}
               </button>
             ))}
           </nav>
 
-          <p className="hidden md:block font-['Space_Grotesk',sans-serif] font-bold leading-[18px] text-[#111] text-[12px] tracking-[0.24px] whitespace-nowrap">ИНТЕРИО</p>
-
-          {/* Hamburger */}
           <button
-            className="md:hidden flex flex-col gap-[5px] justify-center items-center w-[36px] h-[36px]"
+            className="md:hidden flex flex-col gap-[5px] justify-center items-center w-[40px] h-[40px] shrink-0"
             onClick={() => setMenuOpen(o => !o)}
             aria-label="Меню"
           >
@@ -537,52 +540,75 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
 
   return (
     <div
-      className="relative shrink-0 w-full cursor-default border-b-[0.8px] border-[rgba(0,0,0,0.06)]"
+      className="relative shrink-0 w-full cursor-default border-b-[0.8px] border-[rgba(0,0,0,0.06)] md:overflow-visible md:z-[1]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Mobile: stacked */}
+      {/* Mobile */}
       <div className="flex flex-col md:hidden transition-colors duration-200" style={{ backgroundColor: hovered ? '#f7f5f2' : '#fafafa' }}>
-        <div className="flex gap-[12px] items-start px-4 py-3">
+        <div className="flex gap-[12px] items-start px-4 py-3 min-w-0">
           <p className="font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] text-[rgba(0,0,0,0.35)] shrink-0 pt-[2px]">{num}</p>
-          <p className="font-['Raleway',sans-serif] font-normal text-[12px] text-[rgba(0,0,0,0.55)]">{prob}</p>
+          <p className="font-['Raleway',sans-serif] font-normal text-[12px] text-[rgba(0,0,0,0.55)] min-w-0 break-words">{prob}</p>
         </div>
-        <div className="flex gap-[12px] items-center px-4 pb-3">
-          <div className="rounded-[6px] size-[28px] shrink-0 flex items-center justify-center bg-[rgba(0,0,0,0.06)]">
+        <div
+          className={`flex gap-[12px] items-center px-4 pb-3 origin-left transition-all duration-500 ease-out min-w-0 ${
+            hovered
+              ? 'scale-[1.03] rounded-[12px] bg-[#f0ede9] shadow-[0_12px_36px_rgba(0,0,0,0.1)] mx-3 mb-3 px-3 py-[10px]'
+              : ''
+          }`}
+        >
+          <div
+            className={`rounded-[6px] size-[28px] shrink-0 flex items-center justify-center transition-colors duration-500 ${
+              hovered ? 'bg-[rgba(0,0,0,0.1)]' : 'bg-[rgba(0,0,0,0.06)]'
+            }`}
+          >
             <Icon />
           </div>
-          <p className="font-['Raleway',sans-serif] font-medium text-[11px] text-[rgba(0,0,0,0.6)]">{sol}</p>
+          <p className={`font-['Raleway',sans-serif] font-medium text-[11px] min-w-0 transition-colors duration-500 ${hovered ? 'text-[rgba(0,0,0,0.9)]' : 'text-[rgba(0,0,0,0.6)]'}`}>
+            {sol}
+          </p>
         </div>
       </div>
 
-      {/* Desktop: side by side */}
-      <div className="hidden md:flex h-[76.8px] relative">
+      {/* Desktop: решение справа «подъезжает» и увеличивается при hover — все 5 строк */}
+      <div className="hidden md:flex h-[76.8px] relative overflow-visible">
         <div
           className="absolute left-0 top-0 w-1/2 h-full transition-colors duration-200"
           style={{ backgroundColor: hovered ? '#f0ede9' : '#fafafa' }}
         >
-          <div className="absolute inset-0 border-b-[0.8px] border-r-[0.8px] border-[rgba(0,0,0,0.06)]" />
-          <div className="flex gap-[20px] items-center h-full pl-[40px] pr-[0.8px] pb-[0.8px]">
-            <p className="font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] whitespace-nowrap transition-colors duration-200"
+          <div className="absolute inset-0 border-b-[0.8px] border-r-[0.8px] border-[rgba(0,0,0,0.06)] pointer-events-none" />
+          <div className="flex gap-[16px] md:gap-[20px] items-center h-full pl-[clamp(16px,3vw,40px)] pr-2 pb-[0.8px]">
+            <p className="font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] whitespace-nowrap transition-colors duration-200 shrink-0"
               style={{ color: hovered ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.22)' }}>{num}</p>
-            <p className="font-['Raleway',sans-serif] font-normal leading-[20.064px] text-[12.16px] whitespace-nowrap transition-colors duration-200"
+            <p className="font-['Raleway',sans-serif] font-normal leading-[1.35] text-[12px] md:text-[12.16px] transition-colors duration-200 min-w-0"
               style={{ color: hovered ? 'rgba(0,0,0,0.82)' : 'rgba(0,0,0,0.42)' }}>{prob}</p>
           </div>
         </div>
-        <div
-          className="absolute left-1/2 top-0 w-1/2 h-full transition-colors duration-200"
-          style={{ backgroundColor: hovered ? '#f7f5f2' : 'white' }}
-        >
-          <div className="absolute inset-0 border-b-[0.8px] border-[rgba(0,0,0,0.06)]" />
-          <div className="flex gap-[16px] items-center h-full pl-[40px] pb-[0.8px]">
+        <div className="absolute left-1/2 top-0 w-1/2 h-full bg-white">
+          <div className="absolute inset-0 border-b-[0.8px] border-[rgba(0,0,0,0.06)] pointer-events-none" />
+          <div className="absolute inset-0 flex items-center pl-[clamp(12px,2vw,28px)] pr-[clamp(12px,2vw,20px)] pb-[0.8px]">
             <div
-              className="rounded-[8px] size-[36px] shrink-0 flex items-center justify-center transition-colors duration-200"
-              style={{ backgroundColor: hovered ? 'rgba(0,0,0,0.12)' : 'rgba(0,0,0,0.06)' }}
+              className={`flex gap-[14px] md:gap-[16px] items-center w-full rounded-[12px] py-[10px] pl-[10px] md:pl-[12px] pr-[12px] md:pr-[14px] origin-left transition-all duration-500 ease-out ${
+                hovered
+                  ? 'scale-[1.07] -translate-y-[1px] translate-x-[-2px] bg-[#f0ede9] shadow-[0_16px_44px_rgba(0,0,0,0.11)] relative z-20'
+                  : 'scale-100 translate-y-0 translate-x-0 shadow-none bg-transparent'
+              }`}
             >
-              <Icon />
+              <div
+                className={`rounded-[8px] size-[34px] md:size-[36px] shrink-0 flex items-center justify-center transition-colors duration-500 ${
+                  hovered ? 'bg-[rgba(0,0,0,0.12)]' : 'bg-[rgba(0,0,0,0.06)]'
+                }`}
+              >
+                <Icon />
+              </div>
+              <p
+                className={`font-['Raleway',sans-serif] font-medium leading-[1.25] transition-colors duration-500 min-w-0 ${
+                  hovered ? 'text-[12.5px] md:text-[13px] text-[rgba(0,0,0,0.92)]' : 'text-[11px] md:text-[11.84px] text-[rgba(0,0,0,0.5)]'
+                }`}
+              >
+                {sol}
+              </p>
             </div>
-            <p className="font-['Raleway',sans-serif] font-medium leading-[17.76px] text-[11.84px] whitespace-nowrap transition-colors duration-200"
-              style={{ color: hovered ? 'rgba(0,0,0,0.82)' : 'rgba(0,0,0,0.5)' }}>{sol}</p>
           </div>
         </div>
       </div>
@@ -594,16 +620,16 @@ function ProblemsSection() {
   return (
     <div className={`flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
       <div className="flex flex-col md:flex-row items-start w-full gap-6 md:gap-0">
-        <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full md:w-1/2 md:pr-[40px]">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Проблемы объектов</p>
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[24px] md:text-[36px]">С чем сталкиваются строящиеся объекты</p>
+        <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full md:w-1/2 md:pr-[40px] min-w-0">
+          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Проблемы на объекте</p>
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[clamp(22px,4vw,36px)]">С чем сталкиваются строящиеся объекты</p>
         </div>
-        <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full md:w-1/2 md:pl-[40px]">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Решение интерио</p>
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[24px] md:text-[36px]">Сопровождаем проект от А до Я</p>
+        <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full md:w-1/2 md:pl-[40px] min-w-0">
+          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Решения Интерио</p>
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[clamp(22px,4vw,36px)]">Сопровождаем проект от А до Я</p>
         </div>
       </div>
-      <div className="flex flex-col items-start w-full border-b-[0.8px] border-[rgba(0,0,0,0.08)]">
+      <div className="flex flex-col items-start w-full overflow-visible">
         {PROBLEMS.map(row => <ProblemRow key={row.num} {...row} />)}
       </div>
     </div>
@@ -613,6 +639,9 @@ function ProblemsSection() {
 /* ────────────────────────────────────────────────────────
    PARTNERS MARQUEE
 ──────────────────────────────────────────────────────── */
+/** Ширина одного слота в бегущей строке (4 уникальных логотипа = один цикл анимации). */
+const PARTNER_SLOT_PX = 240;
+
 function PartnersSection() {
   const logos = [imgImg, imgImg1, imgImg2, imgImg3, imgImg, imgImg1, imgImg2, imgImg3,
                  imgImg, imgImg1, imgImg2, imgImg3, imgImg, imgImg1, imgImg2, imgImg3];
@@ -621,9 +650,10 @@ function PartnersSection() {
   const lastRef = useRef(0);
 
   useEffect(() => {
+    const cycle = PARTNER_SLOT_PX * 4;
     const tick = (ts: number) => {
       if (lastRef.current) {
-        setOffset(p => (p + (ts - lastRef.current) * 0.04) % (320 * 4));
+        setOffset(p => (p + (ts - lastRef.current) * 0.04) % cycle);
       }
       lastRef.current = ts;
       rafRef.current = requestAnimationFrame(tick);
@@ -633,30 +663,33 @@ function PartnersSection() {
   }, []);
 
   return (
-    <div className="bg-[#fafafa] w-full">
+    <div className="bg-[#fafafa] w-full min-w-0">
       <div className={`flex flex-col gap-4 md:gap-[20px] items-start py-4 md:py-[40px] ${CONTAINER}`}>
-        <div className="flex flex-col gap-2 md:gap-[20px] items-start">
+        <div className="flex flex-col gap-2 md:gap-[20px] items-start max-w-full">
           <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Официальные дистрибьюторы</p>
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[24px] md:text-[36px]">Прямые контракты с производителями</p>
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[clamp(22px,4vw,36px)]">Прямые контракты с производителями</p>
         </div>
       </div>
 
-      {/* бегущая строка — на всю ширину, без контейнера */}
-      <div className="overflow-hidden w-full h-[80px] md:h-[140px] relative">
-          <div
-            className="flex items-center h-full absolute top-0 left-0"
-            style={{ transform: `translateX(-${offset}px)`, width: `${320 * logos.length}px` }}
-          >
-            {logos.map((src, i) => (
-              <div key={i} className="h-full w-[200px] md:w-[320px] shrink-0 flex items-center justify-center">
-                <img
-                  alt=""
-                  className="h-[50px] md:h-[108px] w-[120px] md:w-[216px] object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"
-                  src={src}
-                />
-              </div>
-            ))}
-          </div>
+      <div className="overflow-hidden w-full h-[88px] sm:h-[100px] md:h-[128px] relative border-y border-[rgba(0,0,0,0.05)] bg-[#fafafa]">
+        <div
+          className="flex items-center h-full absolute top-0 left-0 will-change-transform"
+          style={{ transform: `translateX(-${offset}px)`, width: `${PARTNER_SLOT_PX * logos.length}px` }}
+        >
+          {logos.map((src, i) => (
+            <div
+              key={i}
+              className="h-full shrink-0 flex items-center justify-center px-2 sm:px-3 box-border"
+              style={{ width: PARTNER_SLOT_PX }}
+            >
+              <img
+                alt=""
+                className="max-h-[42px] sm:max-h-[48px] md:max-h-[64px] w-full max-w-[200px] object-contain object-center grayscale opacity-[0.55] hover:grayscale-0 hover:opacity-100 transition-all duration-300 pointer-events-auto"
+                src={src}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -1086,49 +1119,66 @@ function ContactSection() {
 ──────────────────────────────────────────────────────── */
 function Footer() {
   return (
-    <div className="bg-[#111] flex flex-col items-center justify-end overflow-hidden relative w-full">
+    <div className="bg-[#111] flex flex-col items-stretch overflow-x-hidden relative w-full min-w-0">
 
-      {/* big ИНТЕРИО text — desktop only */}
-      <div className="hidden md:block relative w-full h-[227px] border-b-[0.8px] border-[rgba(255,255,255,0.08)] overflow-hidden">
-        <div className="flex flex-col items-start pb-[0.8px] pt-[48px] px-[24px] size-full relative">
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[189px] text-[#4e4e4e] text-[215px] tracking-[-8.6px] uppercase whitespace-nowrap">ИНТЕРИО</p>
+      {/* Крупная надпись ИНТЕРИО — масштабируется на всех ширинах */}
+      <div className="relative w-full border-b border-[rgba(255,255,255,0.08)] overflow-hidden">
+        <div className="w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,40px)] py-[clamp(20px,5vw,48px)]">
+          <p
+            className="font-['Cormorant_Garamond',sans-serif] font-light text-[#4e4e4e] uppercase tracking-[-0.035em] leading-[0.88] m-0 select-none"
+            style={{ fontSize: 'clamp(52px, 15vw, 215px)' }}
+          >
+            ИНТЕРИО
+          </p>
         </div>
       </div>
 
-      {/* CTA row */}
-      <div className="relative w-full border-b-[0.8px] border-[rgba(255,255,255,0.08)]">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0 py-8 md:h-[137px] px-4 md:px-[40px]">
-          <div className="flex flex-col gap-[10px] items-start">
-            <p className="font-['Raleway',sans-serif] font-normal text-[9px] md:text-[9.92px] text-[rgba(255,255,255,0.35)] tracking-[0.992px] uppercase">Готовы к сотрудничеству?</p>
-            <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[28px] md:text-[41px] text-white tracking-[-1px]">
-              Давайте начнём&nbsp;&nbsp;работать вместе↗
+      {/* CTA: единый ритм подпись + заголовок + кнопка */}
+      <div className="relative w-full border-b border-[rgba(255,255,255,0.08)]">
+        <div className="w-full max-w-[1280px] mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-10 py-8 md:py-10 px-[clamp(16px,4vw,40px)] min-w-0">
+          <div className="flex flex-col gap-3 md:gap-[10px] items-start min-w-0 max-w-[640px]">
+            <p className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.4)] tracking-[1px] uppercase">
+              Готовы к сотрудничеству?
+            </p>
+            <p className="font-['Cormorant_Garamond',sans-serif] font-light text-white tracking-[-0.02em] leading-[1.15] text-[clamp(24px,5.5vw,41px)]">
+              Давайте начнём работать вместе
+              <span className="inline-block ml-1 align-baseline opacity-90">↗</span>
             </p>
           </div>
           <button
+            type="button"
             onClick={() => scrollToSection('contacts')}
-            className="bg-white h-[44px] md:h-[48px] rounded-[100px] w-full md:w-[233px] flex gap-[6px] items-center justify-center hover:bg-gray-100 transition-colors shrink-0 text-[#2b2a2a]"
+            className="bg-white h-[48px] md:h-[52px] rounded-[100px] w-full sm:w-auto min-w-0 sm:min-w-[220px] lg:w-[240px] flex gap-[8px] items-center justify-center hover:bg-[#f5f5f5] active:bg-[#ebebeb] transition-colors shrink-0 text-[#2b2a2a] px-6"
           >
             <ArrowUpRight />
-            <p className="font-['Raleway',sans-serif] font-medium text-[#2b2a2a] text-[14px] md:text-[16px] text-center whitespace-nowrap">
-              ОСТАВИТЬ ЗАЯВКУ
-            </p>
+            <span className="font-['Raleway',sans-serif] font-medium text-[14px] md:text-[15px] text-center whitespace-nowrap">
+              Оставить заявку
+            </span>
           </button>
         </div>
       </div>
 
-      {/* bottom bar */}
-      <div className="relative w-full flex items-center py-4 md:h-[46px] min-w-0">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-3 md:gap-0 px-4 md:px-[40px] min-w-0">
-          <p className="font-['Raleway',sans-serif] font-normal text-[9px] md:text-[9.6px] text-[rgba(255,255,255,0.25)]">© 2025 ИНТЕРИО · Все права защищены</p>
-          <div className="flex flex-wrap gap-x-[20px] gap-y-1 md:gap-[24px] items-center">
+      {/* Нижняя полоса */}
+      <div className="relative w-full py-5 md:py-6 min-w-0">
+        <div className="w-full max-w-[1280px] mx-auto flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-4 sm:gap-x-6 px-[clamp(16px,4vw,40px)] min-w-0">
+          <p className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.28)] order-3 sm:order-1 w-full sm:w-auto">
+            © 2025 Интерио · Все права защищены
+          </p>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 items-center order-1 sm:order-2">
             {[['Каталог', 'catalog'], ['О нас', 'about'], ['Контакты', 'contacts']].map(([label, id]) => (
-              <button key={id} onClick={() => scrollToSection(id)}
-                className="font-['Raleway',sans-serif] font-medium text-[9px] md:text-[9.6px] text-[rgba(255,255,255,0.3)] hover:text-white transition-colors">
+              <button
+                key={id}
+                type="button"
+                onClick={() => scrollToSection(id)}
+                className="font-['Raleway',sans-serif] font-medium text-[11px] md:text-[12px] text-[rgba(255,255,255,0.45)] hover:text-white transition-colors text-left"
+              >
                 {label}
               </button>
             ))}
           </div>
-          <p className="font-['Raleway',sans-serif] font-normal text-[9px] md:text-[9.6px] text-[rgba(255,255,255,0.2)]">Политика конфиденциальности</p>
+          <p className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.25)] order-2 sm:order-3 w-full sm:w-auto sm:text-right">
+            Политика конфиденциальности
+          </p>
         </div>
       </div>
     </div>
