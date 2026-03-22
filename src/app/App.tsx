@@ -309,14 +309,14 @@ function HeroSection() {
 
           {/* Title + badges */}
           <div className="flex flex-col gap-3 md:gap-[20px] items-center w-full">
-            <div className="font-['Cormorant_Garamond',sans-serif] font-light leading-[normal] text-[28px] md:text-[40px] text-black text-center uppercase w-full">
+            <div className="font-['Cormorant_Garamond',sans-serif] font-light leading-[normal] text-[28px] md:text-[40px] text-ink text-center uppercase w-full">
               <p className="m-0">Комплексные поставки потолочных систем</p>
               <p className="m-0">и напольных покрытий</p>
             </div>
             <div className="flex flex-wrap gap-[6px] md:gap-[8px] items-center justify-center w-full">
               {['✓ с 2015 года на рынке', '✓ 200+ реализованных объектов', '✓ официальные дистрибьюторы заводов'].map(b => (
                 <div key={b} className="border-[0.8px] border-[rgba(0,0,0,0.13)] rounded-[100px] h-[24px] flex items-center px-[12px]">
-                  <p className="font-['Raleway',sans-serif] font-normal text-[#4b4b4b] text-[10px] whitespace-nowrap">{b}</p>
+                  <p className="font-['Raleway',sans-serif] font-normal text-caption text-[10px] whitespace-nowrap">{b}</p>
                 </div>
               ))}
             </div>
@@ -338,27 +338,27 @@ function HeroSection() {
           <div className="flex flex-col md:flex-row gap-4 md:gap-[24px] items-start md:items-center w-full md:w-auto">
             <button
               onClick={() => scrollToSection('contacts')}
-              className="group relative overflow-hidden flex gap-[6px] h-[52px] md:h-[60px] items-center justify-center px-[24px] md:p-[10px] rounded-[100px] w-full md:w-[291px] border border-[rgba(0,0,0,0.25)] bg-white text-[#2b2a2a] transition-[border-color,color,transform,box-shadow] duration-250 ease-out hover:text-white hover:border-black hover:shadow-[0_14px_30px_rgba(0,0,0,0.18)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.14)] shrink-0"
+              className="group relative overflow-hidden flex gap-[6px] h-[52px] md:h-[60px] items-center justify-center px-[24px] md:p-[10px] rounded-[100px] w-full md:w-[291px] border border-[rgba(0,0,0,0.25)] bg-white text-ink transition-[border-color,color,transform,box-shadow] duration-250 ease-out hover:text-white hover:border-black hover:shadow-[0_14px_30px_rgba(0,0,0,0.18)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.14)] shrink-0"
             >
               <span
                 aria-hidden="true"
                 className="absolute inset-0 origin-left scale-x-0 bg-black transition-transform duration-500 ease-out group-hover:scale-x-100"
               />
-              <span className="relative z-10 flex gap-[6px] items-center">
+              <span className="relative z-10 flex gap-[6px] items-center text-ink group-hover:text-white transition-colors duration-300">
                 <ArrowUpRight />
               <p className="font-['Raleway',sans-serif] font-medium text-[14px] md:text-[16px] text-center whitespace-nowrap">
                 ОСТАВИТЬ ЗАЯВКУ
               </p>
               </span>
             </button>
-            <p className="font-['Raleway',sans-serif] font-extralight leading-[21px] text-[#2b2b2b] text-[13px] md:text-[14px] md:w-[586px]">
+            <p className="font-['Raleway',sans-serif] font-extralight leading-[21px] text-caption text-[13px] md:text-[14px] md:w-[586px]">
               Работаем с застройщиками и проектировщиками по всей России. Подбираем решения, оптимизируем бюджет и сопровождаем проект до завершения строительства.
             </p>
           </div>
           <div className="flex gap-[4px] items-center shrink-0">
             {['Потолки', 'Покрытия', 'Под ключ'].map(tag => (
               <div key={tag} className="h-[22px] rounded-[100px] border-[0.8px] border-[rgba(0,0,0,0.13)] flex items-center px-[10px]">
-                <p className="font-['Raleway',sans-serif] font-normal text-[9.92px] text-[rgba(0,0,0,0.4)] whitespace-nowrap">{tag}</p>
+                <p className="font-['Raleway',sans-serif] font-normal text-[9.92px] text-dim whitespace-nowrap">{tag}</p>
               </div>
             ))}
           </div>
@@ -380,8 +380,8 @@ function CategoryCard({ icon, title, subtitle }: {
     <div className="h-full w-full min-h-[140px] min-w-px relative">
       <div className="content-stretch flex flex-col gap-[8px] items-start p-[16px] md:p-[24px] relative w-full h-full">
         {icon}
-        <p className="font-['Cormorant_Garamond',sans-serif] font-medium leading-[normal] text-[#111] text-[16px] md:text-[20px]">{title}</p>
-        <p className="font-['Raleway',sans-serif] font-light leading-[normal] text-[#111] text-[10px] md:text-[12px]">{subtitle}</p>
+        <p className="font-['Cormorant_Garamond',sans-serif] font-medium leading-[normal] text-ink text-[16px] md:text-[20px]">{title}</p>
+        <p className="font-['Raleway',sans-serif] font-light leading-[normal] text-caption text-[10px] md:text-[12px]">{subtitle}</p>
       </div>
     </div>
   );
@@ -391,14 +391,14 @@ function AboutSection() {
   const iconProps = {
     size: 36,
     strokeWidth: 1.15,
-    className: "text-[rgba(0,0,0,0.45)]",
+    className: "text-caption",
   } as const;
 
   return (
     <div id="about" className={`flex flex-col gap-4 md:gap-[20px] items-start ${CONTAINER}`}>
       <div className="flex flex-col gap-3 md:gap-[20px] items-start">
-        <p className="font-['Raleway',sans-serif] font-semibold leading-[normal] text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Поставляем для</p>
-        <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[26px] md:text-[36px]">Коммерческих и социальных объектов</p>
+        <p className="font-['Raleway',sans-serif] font-semibold leading-[normal] text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Поставляем для</p>
+        <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[26px] md:text-[36px]">Коммерческих и социальных объектов</p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 w-full items-stretch border border-[#eaeaea] divide-x divide-y divide-[#eaeaea]">
         <CategoryCard icon={<GraduationCap {...iconProps} />} title="Образование" subtitle="школы, ВУЗы, детсады" />
@@ -437,8 +437,8 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
       {/* Mobile */}
       <div className="flex flex-col md:hidden transition-colors duration-200" style={{ backgroundColor: hovered ? '#f7f5f2' : '#fafafa' }}>
         <div className="flex gap-[12px] items-start px-4 py-3 min-w-0">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] text-[rgba(0,0,0,0.35)] shrink-0 pt-[2px]">{num}</p>
-          <p className="font-['Raleway',sans-serif] font-normal text-[12px] text-[rgba(0,0,0,0.55)] min-w-0 break-words">{prob}</p>
+            <p className="font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] text-dim shrink-0 pt-[2px]">{num}</p>
+          <p className="font-['Raleway',sans-serif] font-normal text-[12px] text-caption min-w-0 break-words">{prob}</p>
         </div>
         <div
           className={`flex gap-[12px] items-center px-4 pb-3 origin-left transition-all duration-500 ease-out min-w-0 ${
@@ -454,7 +454,7 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
           >
             <Icon />
           </div>
-          <p className={`font-['Raleway',sans-serif] font-medium text-[11px] min-w-0 transition-colors duration-500 ${hovered ? 'text-[rgba(0,0,0,0.9)]' : 'text-[rgba(0,0,0,0.6)]'}`}>
+          <p className={`font-['Raleway',sans-serif] font-medium text-[11px] min-w-0 transition-colors duration-500 ${hovered ? 'text-ink' : 'text-caption'}`}>
             {sol}
           </p>
         </div>
@@ -468,10 +468,8 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
         >
           <div className="absolute inset-0 border-b-[0.8px] border-r-[0.8px] border-[rgba(0,0,0,0.06)] pointer-events-none" />
           <div className="flex gap-[16px] md:gap-[20px] items-center h-full pl-[clamp(16px,3vw,40px)] pr-2 pb-[0.8px]">
-            <p className="font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] whitespace-nowrap transition-colors duration-200 shrink-0"
-              style={{ color: hovered ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.22)' }}>{num}</p>
-            <p className="font-['Raleway',sans-serif] font-normal leading-[1.35] text-[12px] md:text-[12.16px] transition-colors duration-200 min-w-0"
-              style={{ color: hovered ? 'rgba(0,0,0,0.82)' : 'rgba(0,0,0,0.42)' }}>{prob}</p>
+            <p className={`font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] whitespace-nowrap transition-colors duration-200 shrink-0 ${hovered ? 'text-caption' : 'text-dim'}`}>{num}</p>
+            <p className={`font-['Raleway',sans-serif] font-normal leading-[1.35] text-[12px] md:text-[12.16px] transition-colors duration-200 min-w-0 ${hovered ? 'text-ink' : 'text-caption'}`}>{prob}</p>
           </div>
         </div>
         <div className="absolute left-1/2 top-0 w-1/2 h-full bg-white">
@@ -493,7 +491,7 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
               </div>
               <p
                 className={`font-['Raleway',sans-serif] font-medium leading-[1.25] transition-colors duration-500 min-w-0 ${
-                  hovered ? 'text-[12.5px] md:text-[13px] text-[rgba(0,0,0,0.92)]' : 'text-[11px] md:text-[11.84px] text-[rgba(0,0,0,0.5)]'
+                  hovered ? 'text-[12.5px] md:text-[13px] text-ink' : 'text-[11px] md:text-[11.84px] text-caption'
                 }`}
               >
                 {sol}
@@ -511,12 +509,12 @@ function ProblemsSection() {
     <div className={`flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
       <div className="flex flex-col md:flex-row items-start w-full gap-6 md:gap-0">
         <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full md:w-1/2 md:pr-[40px] min-w-0">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Проблемы на объекте</p>
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[clamp(22px,4vw,36px)]">С чем сталкиваются строящиеся объекты</p>
+          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Проблемы на объекте</p>
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[clamp(22px,4vw,36px)]">С чем сталкиваются строящиеся объекты</p>
         </div>
         <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full md:w-1/2 md:pl-[40px] min-w-0">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Решения Интерио</p>
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[clamp(22px,4vw,36px)]">Сопровождаем проект от А до Я</p>
+          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Решения Интерио</p>
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[clamp(22px,4vw,36px)]">Сопровождаем проект от А до Я</p>
         </div>
       </div>
       <div className="flex flex-col items-start w-full overflow-visible">
@@ -556,8 +554,8 @@ function PartnersSection() {
     <div className="bg-[#fafafa] w-full min-w-0">
       <div className={`flex flex-col gap-4 md:gap-[20px] items-start py-4 md:py-[40px] ${CONTAINER}`}>
         <div className="flex flex-col gap-2 md:gap-[20px] items-start max-w-full">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Официальные дистрибьюторы</p>
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[clamp(22px,4vw,36px)]">Прямые контракты с производителями</p>
+          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Официальные дистрибьюторы</p>
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[clamp(22px,4vw,36px)]">Прямые контракты с производителями</p>
         </div>
       </div>
 
@@ -597,10 +595,10 @@ function StatItem({ target, suffix, label }: {
     : String(count);
   return (
     <div ref={ref} className="flex flex-col gap-[4px] md:gap-[8px] items-center flex-1 min-w-[110px] md:min-w-[160px]">
-      <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[32px] md:text-[48px] text-center w-full text-[#111] whitespace-nowrap">
+      <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[32px] md:text-[48px] text-center w-full text-ink whitespace-nowrap">
         {fmt}{suffix}
       </p>
-      <p className="font-['Raleway',sans-serif] font-extralight leading-[1.5] text-[10px] md:text-[12px] text-[rgba(0,0,0,0.5)] w-full text-center">{label}</p>
+      <p className="font-['Raleway',sans-serif] font-extralight leading-[1.5] text-[10px] md:text-[12px] text-caption w-full text-center">{label}</p>
     </div>
   );
 }
@@ -609,10 +607,10 @@ function StatYears() {
   const { ref, count } = useCountUp(10, 1600);
   return (
     <div ref={ref} className="flex flex-col gap-[4px] md:gap-[8px] items-center flex-1 min-w-[110px] md:min-w-[160px]">
-      <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[#111] text-[32px] md:text-[48px] text-center w-full whitespace-nowrap">
+      <p className="font-['Cormorant_Garamond',sans-serif] font-light text-ink text-[32px] md:text-[48px] text-center w-full whitespace-nowrap">
         {count} лет
       </p>
-      <p className="font-['Raleway',sans-serif] font-extralight leading-[1.5] text-[10px] md:text-[12px] text-[rgba(0,0,0,0.5)] uppercase w-full text-center">НА РЫНКЕ С 2015 ГОДА</p>
+      <p className="font-['Raleway',sans-serif] font-extralight leading-[1.5] text-[10px] md:text-[12px] text-caption uppercase w-full text-center">НА РЫНКЕ С 2015 ГОДА</p>
     </div>
   );
 }
@@ -638,8 +636,8 @@ function ProjectsSection() {
     <div id="objects" className="bg-[#fafafa] w-full">
       <div className={`flex flex-col gap-4 md:gap-[20px] items-start py-4 md:py-[40px] ${CONTAINER}`}>
         <div className="flex flex-col gap-2 md:gap-[20px] items-start">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Реализованные объекты</p>
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[24px] md:text-[36px]">Более 200 объектов по всей России</p>
+          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Реализованные объекты</p>
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[24px] md:text-[36px]">Более 200 объектов по всей России</p>
         </div>
 
         <StatsCard />
@@ -654,9 +652,9 @@ function ProjectsSection() {
               <div className="h-[220px] md:h-[266px] w-full overflow-hidden">
                 <img alt="" className="w-full h-full object-cover" src={img} />
               </div>
-              <div className="flex flex-col gap-[6px] md:gap-[8px] items-start text-[#111] w-full">
-                <p className="font-['Raleway',sans-serif] font-light text-[11px] md:text-[12px] w-full">{cat}</p>
-                <p className="font-['Cormorant_Garamond',sans-serif] font-medium text-[18px] md:text-[20px] w-full">{title}</p>
+              <div className="flex flex-col gap-[6px] md:gap-[8px] items-start w-full">
+                <p className="font-['Raleway',sans-serif] font-light text-[11px] md:text-[12px] w-full text-caption">{cat}</p>
+                <p className="font-['Cormorant_Garamond',sans-serif] font-medium text-[18px] md:text-[20px] w-full text-ink">{title}</p>
               </div>
             </div>
           ))}
@@ -754,8 +752,8 @@ function MaterialsSection() {
   return (
     <div id="catalog" className={`flex flex-col items-start ${CONTAINER}`}>
       <div className="flex flex-col gap-3 md:gap-[20px] items-start pb-6 md:pb-[40px] w-full">
-        <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">наши решения</p>
-        <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[24px] md:text-[36px]">Материалы для коммерческих и социальных объектов</p>
+        <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">наши решения</p>
+        <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[24px] md:text-[36px]">Материалы для коммерческих и социальных объектов</p>
       </div>
 
       <div className="w-full border-t-[0.8px] border-[rgba(0,0,0,0.08)] pt-[16px] md:pt-[22px]">
@@ -779,8 +777,8 @@ function TeamSection() {
     <div id="team" className="w-full">
       <div className={`flex flex-col gap-4 md:gap-[20px] items-start py-4 md:py-[40px] ${CONTAINER}`}>
         <div className="flex flex-col gap-2 md:gap-[20px] items-start">
-          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Наша команда</p>
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[24px] md:text-[36px]">Специалисты, которые решают задачи</p>
+          <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Наша команда</p>
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[24px] md:text-[36px]">Специалисты, которые решают задачи</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-[12px] pt-2 md:pt-[20px] w-full">
           {members.map(({ img, name, role, email }) => (
@@ -788,11 +786,11 @@ function TeamSection() {
               <div className="h-[200px] md:h-[368px] w-full overflow-hidden">
                 <img alt="" className="w-full h-full object-cover" src={img} />
               </div>
-              <div className="flex flex-col gap-[4px] md:gap-[8px] items-start text-[#111] w-full">
-                <p className="font-['Cormorant_Garamond',sans-serif] font-medium text-[16px] md:text-[20px] w-full">{name}</p>
-                <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[12px] w-full">{role}</p>
+              <div className="flex flex-col gap-[4px] md:gap-[8px] items-start w-full">
+                <p className="font-['Cormorant_Garamond',sans-serif] font-medium text-[16px] md:text-[20px] w-full text-ink">{name}</p>
+                <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[12px] w-full text-caption">{role}</p>
               </div>
-              <p className="font-['Raleway',sans-serif] font-light text-[#111] text-[10px] md:text-[12px] w-full">{email}</p>
+              <p className="font-['Raleway',sans-serif] font-light text-caption text-[10px] md:text-[12px] w-full">{email}</p>
             </div>
           ))}
         </div>
@@ -891,7 +889,7 @@ function ContactSection() {
   return (
     <div id="contacts" className="bg-[#fafafa] w-full">
       <div className={`flex flex-col gap-4 md:gap-[20px] items-start py-4 md:py-[40px] ${CONTAINER}`}>
-        <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-[rgba(0,0,0,0.38)] tracking-[1px] uppercase">Оставить заявку</p>
+        <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Оставить заявку</p>
 
         <div className="flex flex-col md:flex-row gap-6 md:gap-[32px] items-start md:items-start w-full">
 
@@ -923,7 +921,7 @@ function ContactSection() {
             void handleSubmit();
           }}
         >
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-[#111] text-[24px] md:text-[36px]">
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[24px] md:text-[36px]">
             Получите расчет материалов для вашего проекта
           </p>
 
@@ -931,7 +929,7 @@ function ContactSection() {
             {/* Name */}
             <div className="flex flex-col gap-[8px] items-start w-full">
               <div className="flex items-center justify-between w-full">
-                <p className="font-['Raleway',sans-serif] font-light text-[#111] text-[12px]">Имя</p>
+                <p className="font-['Raleway',sans-serif] font-light text-caption text-[12px]">Имя</p>
                 {errors.name && <p className="font-['Raleway',sans-serif] font-light text-[11px] text-[#e53e3e]">{errors.name}</p>}
               </div>
               <div className={`bg-white rounded-[8px] w-full border transition-colors duration-150 ${errors.name ? 'border-[#e53e3e]' : touched.name && !errors.name ? 'border-[#22c55e]' : 'border-[#eaeaea]'}`}>
@@ -942,14 +940,14 @@ function ContactSection() {
                   onChange={set('name')}
                   onBlur={blur('name')}
                   disabled={isSubmitting}
-                  className="w-full px-[10px] py-[14px] md:py-[16px] font-['Raleway',sans-serif] font-light text-[#111] text-[12px] placeholder-[#8e8e8e] bg-transparent outline-none rounded-[8px]"
+                  className="w-full px-[10px] py-[14px] md:py-[16px] font-['Raleway',sans-serif] font-light text-ink text-[12px] placeholder:text-dim bg-transparent outline-none rounded-[8px]"
                 />
               </div>
             </div>
             {/* Phone */}
             <div className="flex flex-col gap-[8px] items-start w-full">
               <div className="flex items-center justify-between w-full">
-                <p className="font-['Raleway',sans-serif] font-light text-[#111] text-[12px]">Телефон</p>
+                <p className="font-['Raleway',sans-serif] font-light text-caption text-[12px]">Телефон</p>
                 {errors.phone && <p className="font-['Raleway',sans-serif] font-light text-[11px] text-[#e53e3e]">{errors.phone}</p>}
               </div>
               <div className={`bg-white rounded-[8px] w-full border transition-colors duration-150 ${errors.phone ? 'border-[#e53e3e]' : touched.phone && !errors.phone ? 'border-[#22c55e]' : 'border-[#eaeaea]'}`}>
@@ -960,16 +958,16 @@ function ContactSection() {
                   onChange={set('phone')}
                   onBlur={blur('phone')}
                   disabled={isSubmitting}
-                  className="w-full px-[10px] py-[14px] md:py-[16px] font-['Raleway',sans-serif] font-light text-[#111] text-[12px] placeholder-[#8e8e8e] bg-transparent outline-none rounded-[8px]"
+                  className="w-full px-[10px] py-[14px] md:py-[16px] font-['Raleway',sans-serif] font-light text-ink text-[12px] placeholder:text-dim bg-transparent outline-none rounded-[8px]"
                 />
               </div>
             </div>
             {/* Comment */}
             <div className="flex flex-col gap-[8px] items-start w-full">
-              <p className="font-['Raleway',sans-serif] font-light text-[#111] text-[12px]">
+              <p className="font-['Raleway',sans-serif] font-light text-caption text-[12px]">
                 Комментарий&nbsp;&nbsp;
-                <span className="text-[#8e8e8e]">* </span>
-                <span className="italic text-[#8e8e8e]">необязательно</span>
+                <span className="text-dim">* </span>
+                <span className="italic text-dim">необязательно</span>
               </p>
               <div className="bg-white h-[100px] md:h-[126px] rounded-[8px] w-full border border-[#eaeaea] focus-within:border-[rgba(0,0,0,0.25)] transition-colors duration-150">
                 <textarea
@@ -977,7 +975,7 @@ function ContactSection() {
                   value={form.comment}
                   onChange={set('comment')}
                   disabled={isSubmitting}
-                  className="w-full h-full px-[10px] py-[14px] md:py-[16px] font-['Raleway',sans-serif] font-light text-[12px] placeholder-[#8e8e8e] bg-transparent outline-none resize-none rounded-[8px]"
+                  className="w-full h-full px-[10px] py-[14px] md:py-[16px] font-['Raleway',sans-serif] font-light text-[12px] text-ink placeholder:text-dim bg-transparent outline-none resize-none rounded-[8px]"
                 />
               </div>
             </div>
@@ -995,7 +993,7 @@ function ContactSection() {
                 className="fixed left-1/2 top-[53%] -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
               >
                 <div className="bg-[linear-gradient(135deg,rgba(255,255,255,0.22),rgba(255,255,255,0.10))] backdrop-blur-[16px] border border-[rgba(255,255,255,0.35)] rounded-[18px] px-[18px] py-[14px] md:px-[26px] md:py-[16px] shadow-[0_20px_70px_rgba(0,0,0,0.16)] max-w-[560px]">
-                  <p className="font-['Raleway',sans-serif] font-normal text-[#111] text-[14px] md:text-[16px] leading-[1.35]">
+                  <p className="font-['Raleway',sans-serif] font-normal text-ink text-[14px] md:text-[16px] leading-[1.35]">
                     Наш специалист свяжется с вами, уточнит параметры объекта и подготовит расчет.
                   </p>
                 </div>
@@ -1008,7 +1006,7 @@ function ContactSection() {
               className={`h-[52px] md:h-[60px] rounded-[100px] w-full flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed transition-[transform,box-shadow,background-color] duration-260 ease-out ${
                 sent
                   ? 'bg-[#22c55e] hover:bg-[#16a34a]'
-                  : 'bg-[#111] text-[#fcf8f8] hover:shadow-[0_14px_30px_rgba(0,0,0,0.35)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.28)]'
+                  : 'bg-black text-[#fcf8f8] hover:shadow-[0_14px_30px_rgba(0,0,0,0.35)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.28)]'
               }`}
             >
               {isSubmitting ? (
@@ -1048,12 +1046,12 @@ function ContactSection() {
 ──────────────────────────────────────────────────────── */
 function Footer() {
   return (
-    <div className="bg-[#111] flex flex-col items-stretch overflow-x-hidden relative w-full min-w-0">
+    <div className="bg-black flex flex-col items-stretch overflow-x-hidden relative w-full min-w-0">
 
       <div className="relative w-full border-b border-[rgba(255,255,255,0.08)] overflow-hidden">
         <div className="w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,40px)] py-[clamp(14px,4vw,32px)]">
           <p
-            className="font-['Cormorant_Garamond',sans-serif] font-light text-[#4e4e4e] uppercase tracking-[-0.035em] leading-[0.88] m-0 select-none"
+            className="font-['Cormorant_Garamond',sans-serif] font-light text-white/25 uppercase tracking-[-0.035em] leading-[0.88] m-0 select-none"
             style={{ fontSize: "clamp(48px, 14vw, 200px)" }}
           >
             ИНТЕРИО

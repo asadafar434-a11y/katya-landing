@@ -2,8 +2,8 @@ import { Link } from "react-router";
 import Header from "../Header";
 
 const P = {
-  wrap: "font-['Raleway',sans-serif] text-[14px] md:text-[15px] leading-[1.65] text-[rgba(0,0,0,0.78)]",
-  h2: "font-['Cormorant_Garamond',sans-serif] font-medium text-[22px] md:text-[26px] text-[#111] mt-8 mb-3 first:mt-0",
+  wrap: "font-['Raleway',sans-serif] text-[14px] md:text-[15px] leading-[1.65] text-ink/85",
+  h2: "font-['Cormorant_Garamond',sans-serif] font-medium text-[22px] md:text-[26px] text-ink mt-8 mb-3 first:mt-0",
 };
 
 export default function PrivacyPage() {
@@ -11,13 +11,13 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-white">
       <Header />
       <main className={`w-full max-w-[720px] mx-auto px-[clamp(16px,4vw,32px)] pt-[88px] md:pt-[100px] pb-16 md:pb-24`}>
-        <p className="font-['Raleway',sans-serif] text-[11px] uppercase tracking-[1px] text-[rgba(0,0,0,0.4)] mb-2">
+        <p className="font-['Raleway',sans-serif] text-[11px] uppercase tracking-[1px] text-caption mb-2">
           Документ
         </p>
-        <h1 className="font-['Cormorant_Garamond',sans-serif] font-light text-[clamp(28px,5vw,40px)] text-[#111] leading-tight mb-2">
+        <h1 className="font-['Cormorant_Garamond',sans-serif] font-light text-[clamp(28px,5vw,40px)] text-ink leading-tight mb-2">
           Политика конфиденциальности
         </h1>
-        <p className="font-['Raleway',sans-serif] text-[13px] text-[rgba(0,0,0,0.45)] mb-10">
+        <p className="font-['Raleway',sans-serif] text-[13px] text-caption mb-10">
           Редакция от {new Date().getFullYear()} года. Типовая редакция для сайтов компаний, работающих на территории РФ (в т.ч. в соответствии с требованиями ФЗ № 152-ФЗ «О персональных данных»).
         </p>
 
@@ -32,10 +32,10 @@ export default function PrivacyPage() {
 
           <h2 className={P.h2}>2. Термины</h2>
           <p>
-            <strong className="text-[#111] font-medium">Персональные данные</strong> — любая информация, относящаяся к прямо или косвенно определённому физическому лицу (субъекту персональных данных).
+            <strong className="text-ink font-medium">Персональные данные</strong> — любая информация, относящаяся к прямо или косвенно определённому физическому лицу (субъекту персональных данных).
           </p>
           <p className="mt-3">
-            <strong className="text-[#111] font-medium">Обработка персональных данных</strong> — любое действие с персональными данными: сбор, запись, систематизация, хранение, уточнение, использование, передача, обезличивание, блокирование, удаление, уничтожение.
+            <strong className="text-ink font-medium">Обработка персональных данных</strong> — любое действие с персональными данными: сбор, запись, систематизация, хранение, уточнение, использование, передача, обезличивание, блокирование, удаление, уничтожение.
           </p>
 
           <h2 className={P.h2}>3. Какие данные мы можем обрабатывать</h2>
@@ -94,7 +94,7 @@ export default function PrivacyPage() {
         <p className="mt-12">
           <Link
             to="/"
-            className="font-['Raleway',sans-serif] text-[14px] text-[#111] underline underline-offset-4 hover:opacity-70"
+            className="font-['Raleway',sans-serif] text-[14px] text-ink underline underline-offset-4 hover:opacity-70"
           >
             ← На главную
           </Link>

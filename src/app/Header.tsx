@@ -11,35 +11,55 @@ export default function Header() {
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
 
+  const IDLE_MS = 4000;
+
   useEffect(() => {
-    const hide = () => {
-      if (window.scrollY > 80) setVisible(false);
-    };
-    const reset = () => {
+    if (menuOpen) {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
       setVisible(true);
-      if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(hide, 7000);
-    };
-    const onScroll = () => {
-      setScrolled(window.scrollY > 10);
-      reset();
+      return;
+    }
+
+    const hide = () => {
+      setVisible(false);
     };
 
+    const armTimer = () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = window.setTimeout(hide, IDLE_MS);
+    };
+
+    const resetIdle = () => {
+      setVisible(true);
+      armTimer();
+    };
+
+    const onScroll = () => {
+      setScrolled(window.scrollY > 10);
+      resetIdle();
+    };
+
+    setScrolled(window.scrollY > 10);
+    resetIdle();
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("mousemove", reset, { passive: true });
-    window.addEventListener("keydown", reset, { passive: true });
-    window.addEventListener("click", reset, { passive: true });
-    window.addEventListener("touchstart", reset, { passive: true });
+    window.addEventListener("mousemove", resetIdle, { passive: true });
+    window.addEventListener("keydown", resetIdle, { passive: true });
+    window.addEventListener("click", resetIdle, { passive: true });
+    window.addEventListener("touchstart", resetIdle, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("mousemove", reset);
-      window.removeEventListener("keydown", reset);
-      window.removeEventListener("click", reset);
-      window.removeEventListener("touchstart", reset);
+      window.removeEventListener("mousemove", resetIdle);
+      window.removeEventListener("keydown", resetIdle);
+      window.removeEventListener("click", resetIdle);
+      window.removeEventListener("touchstart", resetIdle);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, []);
+  }, [menuOpen]);
 
   const navItems = [
     { label: "Каталог", id: "catalog" },
@@ -60,18 +80,20 @@ export default function Header() {
   };
 
   const logoClass =
-    "shrink-0 text-left font-['Cormorant_Garamond',sans-serif] font-light text-[#111] text-[20px] sm:text-[22px] md:text-[24px] leading-none tracking-[-0.5px] whitespace-nowrap transition-opacity duration-200 hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111]/20 rounded-sm";
+    "shrink-0 text-left font-['Cormorant_Garamond',sans-serif] font-light text-ink text-[20px] sm:text-[22px] md:text-[24px] leading-none tracking-[-0.5px] whitespace-nowrap transition-opacity duration-200 hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20 rounded-sm";
 
   return (
     <>
       <div
         className={[
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          "fixed top-0 left-0 right-0 z-50 will-change-transform",
+          "transition-[transform,opacity,background-color,border-color,box-shadow] duration-700 ease-in-out",
           scrolled
             ? "bg-white/60 backdrop-blur-[18px] border-b border-white/30 shadow-sm"
             : "bg-white border-b border-[#d5d5d5]",
-          visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0",
+          visible ? "translate-y-0 opacity-100 pointer-events-auto" : "-translate-y-full opacity-0 pointer-events-none",
         ].join(" ")}
+        aria-hidden={!visible}
       >
         <div className="flex items-center justify-between w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)] py-[16px] md:py-[20px] text-[14px] gap-3 min-w-0">
           <Link
@@ -93,7 +115,7 @@ export default function Header() {
                 key={id}
                 type="button"
                 onClick={() => handleNav(id)}
-                className="font-['Raleway',sans-serif] font-light text-[13px] lg:text-[14px] text-[rgba(0,0,0,0.48)] hover:text-[#111] transition-colors duration-200 shrink-0"
+                className="font-['Raleway',sans-serif] font-light text-[13px] lg:text-[14px] text-caption hover:text-ink transition-colors duration-200 shrink-0"
               >
                 {label}
               </button>
@@ -107,13 +129,13 @@ export default function Header() {
             aria-label="Меню"
           >
             <span
-              className={`block h-[1.5px] w-[22px] bg-[#111] transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[6.5px]" : ""}`}
+              className={`block h-[1.5px] w-[22px] bg-black transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[6.5px]" : ""}`}
             />
             <span
-              className={`block h-[1.5px] w-[22px] bg-[#111] transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+              className={`block h-[1.5px] w-[22px] bg-black transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
             />
             <span
-              className={`block h-[1.5px] w-[22px] bg-[#111] transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""}`}
+              className={`block h-[1.5px] w-[22px] bg-black transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""}`}
             />
           </button>
         </div>
@@ -121,7 +143,8 @@ export default function Header() {
 
       <div
         className={[
-          "fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-[18px] transition-all duration-400 md:hidden",
+          "fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-[18px] md:hidden",
+          "transition-[transform,opacity] duration-700 ease-in-out will-change-transform",
           menuOpen ? "translate-y-0 opacity-100 pointer-events-auto" : "-translate-y-full opacity-0 pointer-events-none",
         ].join(" ")}
       >
@@ -131,7 +154,7 @@ export default function Header() {
               key={id}
               type="button"
               onClick={() => handleNav(id)}
-              className="font-['Raleway',sans-serif] font-light text-[22px] text-[rgba(0,0,0,0.55)] hover:text-[#111] transition-colors duration-200 text-left py-[12px] border-b border-[rgba(0,0,0,0.06)] last:border-0"
+              className="font-['Raleway',sans-serif] font-light text-[22px] text-caption hover:text-ink transition-colors duration-200 text-left py-[12px] border-b border-[rgba(0,0,0,0.06)] last:border-0"
             >
               {label}
             </button>

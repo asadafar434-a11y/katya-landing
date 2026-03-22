@@ -1,4 +1,12 @@
 export function scrollToSection(id: string) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (!el) return;
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  el.scrollIntoView({
+    behavior: prefersReduced ? "auto" : "smooth",
+    block: "start",
+    inline: "nearest",
+  });
 }

@@ -10,8 +10,13 @@
 
 :root {
   --font-size: 16px;
+  /* Typography: near-black titles, one muted gray for labels/body secondary */
+  --ink: #000000;
+  --caption: #575757;
+  --dim: #7a7a7a;
+  --scroll-pad-top: 5.75rem; /* ~92px: fixed header + breathing room for anchor scroll */
   --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
+  --foreground: var(--ink);
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -87,6 +92,9 @@
 }
 
 @theme inline {
+  --color-ink: var(--ink);
+  --color-caption: var(--caption);
+  --color-dim: var(--dim);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -133,7 +141,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
 
   /**
@@ -143,6 +151,13 @@
 
   html {
     font-size: var(--font-size);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--scroll-pad-top);
+    }
   }
 
   h1 {
