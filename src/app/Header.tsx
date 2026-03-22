@@ -9,7 +9,8 @@ export default function Header() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const isHome = location.pathname === "/";
+  /** Главная лендинга (не /privacy, /offer) — там есть блок #hero */
+  const isLandingHome = location.pathname === "/" || location.pathname === "";
 
   const IDLE_MS = 4000;
 
@@ -23,7 +24,15 @@ export default function Header() {
       return;
     }
 
+    const pastHeroBottom = (): boolean => {
+      if (!isLandingHome) return false;
+      const el = document.getElementById("hero");
+      if (!el) return false;
+      return window.scrollY >= el.offsetTop + el.offsetHeight;
+    };
+
     const hide = () => {
+      if (!pastHeroBottom()) return;
       setVisible(false);
     };
 
@@ -32,34 +41,55 @@ export default function Header() {
       timerRef.current = window.setTimeout(hide, IDLE_MS);
     };
 
-    const resetIdle = () => {
+    /** Автоскрытие только на главной лендинга и только ниже первого экрана (после #hero) */
+    const syncIdle = () => {
+      setScrolled(window.scrollY > 10);
+
+      if (!isLandingHome) {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+          timerRef.current = null;
+        }
+        setVisible(true);
+        return;
+      }
+
+      if (!pastHeroBottom()) {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+          timerRef.current = null;
+        }
+        setVisible(true);
+        return;
+      }
+
       setVisible(true);
       armTimer();
     };
 
     const onScroll = () => {
-      setScrolled(window.scrollY > 10);
-      resetIdle();
+      syncIdle();
     };
 
-    setScrolled(window.scrollY > 10);
-    resetIdle();
+    syncIdle();
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("mousemove", resetIdle, { passive: true });
-    window.addEventListener("keydown", resetIdle, { passive: true });
-    window.addEventListener("click", resetIdle, { passive: true });
-    window.addEventListener("touchstart", resetIdle, { passive: true });
+    window.addEventListener("mousemove", syncIdle, { passive: true });
+    window.addEventListener("keydown", syncIdle, { passive: true });
+    window.addEventListener("click", syncIdle, { passive: true });
+    window.addEventListener("touchstart", syncIdle, { passive: true });
+    window.addEventListener("resize", syncIdle, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("mousemove", resetIdle);
-      window.removeEventListener("keydown", resetIdle);
-      window.removeEventListener("click", resetIdle);
-      window.removeEventListener("touchstart", resetIdle);
+      window.removeEventListener("mousemove", syncIdle);
+      window.removeEventListener("keydown", syncIdle);
+      window.removeEventListener("click", syncIdle);
+      window.removeEventListener("touchstart", syncIdle);
+      window.removeEventListener("resize", syncIdle);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [menuOpen]);
+  }, [menuOpen, isLandingHome]);
 
   const navItems = [
     { label: "Каталог", id: "catalog" },
@@ -71,7 +101,7 @@ export default function Header() {
 
   const handleNav = (id: string) => {
     setMenuOpen(false);
-    if (!isHome) {
+    if (!isLandingHome) {
       navigate("/");
       window.setTimeout(() => scrollToSection(id), 80);
     } else {
@@ -82,26 +112,35 @@ export default function Header() {
   const logoClass =
     "shrink-0 text-left font-['Cormorant_Garamond',sans-serif] font-light text-ink text-[20px] sm:text-[22px] md:text-[24px] leading-none tracking-[-0.5px] whitespace-nowrap transition-opacity duration-200 hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20 rounded-sm";
 
+  /** Плавное появление сверху вниз / уход вверх; фон при скролле — отдельно, без «залипания» на 1s */
+  const slideEase = "[transition-timing-function:cubic-bezier(0.22,1,0.36,1)]";
+
   return (
     <>
-      <div
-        className={[
-          "fixed top-0 left-0 right-0 z-50 will-change-transform",
-          "transition-[transform,opacity,background-color,border-color,box-shadow] duration-700 ease-in-out",
-          scrolled
-            ? "bg-white/60 backdrop-blur-[18px] border-b border-white/30 shadow-sm"
-            : "bg-white border-b border-[#d5d5d5]",
-          visible ? "translate-y-0 opacity-100 pointer-events-auto" : "-translate-y-full opacity-0 pointer-events-none",
-        ].join(" ")}
-        aria-hidden={!visible}
-      >
+      <div className="fixed top-0 left-0 right-0 z-50">
+        <div
+          className={[
+            "will-change-transform transition-[transform,opacity] duration-[1000ms] motion-reduce:duration-300",
+            slideEase,
+            visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none",
+          ].join(" ")}
+          aria-hidden={!visible}
+        >
+          <div
+            className={[
+              "transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out",
+              scrolled
+                ? "bg-white/60 backdrop-blur-[18px] border-b border-white/30 shadow-sm"
+                : "bg-white border-b border-[#d5d5d5]",
+            ].join(" ")}
+          >
         <div className="flex items-center justify-between w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)] py-[16px] md:py-[20px] text-[14px] gap-3 min-w-0">
           <Link
             to="/"
             className={logoClass}
             aria-label="Интерио — главная"
             onClick={() => {
-              if (isHome) {
+              if (isLandingHome) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
@@ -139,12 +178,15 @@ export default function Header() {
             />
           </button>
         </div>
+          </div>
+        </div>
       </div>
 
       <div
         className={[
-          "fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-[18px] md:hidden",
-          "transition-[transform,opacity] duration-700 ease-in-out will-change-transform",
+          "fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-[18px] md:hidden will-change-transform",
+          "transition-[transform,opacity] duration-[1000ms] motion-reduce:duration-300",
+          slideEase,
           menuOpen ? "translate-y-0 opacity-100 pointer-events-auto" : "-translate-y-full opacity-0 pointer-events-none",
         ].join(" ")}
       >

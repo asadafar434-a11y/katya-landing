@@ -303,7 +303,7 @@ function HeadphonesIcon() {
 ──────────────────────────────────────────────────────── */
 function HeroSection() {
   return (
-    <div className={`flex flex-col gap-5 md:gap-[24px] items-start pt-[72px] md:pt-[88px] ${CONTAINER}`}>
+    <div id="hero" className={`flex flex-col gap-5 md:gap-[24px] items-start pt-[72px] md:pt-[88px] ${CONTAINER}`}>
       <div className="flex flex-col gap-4 md:gap-[20px] items-start w-full">
         <div className="flex flex-col gap-4 md:gap-[20px] items-start w-full">
 
