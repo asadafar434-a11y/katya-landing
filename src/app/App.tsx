@@ -1,4 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import { Routes, Route, Link } from "react-router";
+import { scrollToSection } from "../utils/scroll";
+import Header from "./Header";
+import PrivacyPage from "./pages/PrivacyPage";
+import OfferPage from "./pages/OfferPage";
 import svgPaths from "../imports/svg-are6q647vg";
 import {
   GraduationCap,
@@ -30,10 +35,10 @@ import imgImage from "../assets/figma/c05c3cb162faebf9de2b56030eedc3d21a8313f7.p
 const CONTAINER = "w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)]";
 const CONTAINER_NO_PX = "w-full max-w-[1280px] mx-auto";
 
-const scrollToSection = (id: string) => {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-};
+/** Заявки с формы → почта через https://formsubmit.co (первый раз подтвердите ящик в письме от FormSubmit). */
+const CONTACT_FORM_EMAIL = "davidsilver2038@gmail.com";
+const CONTACT_FORM_SUBJECT = "заявка с сайта";
+const CONTACT_FORM_URL = `https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_FORM_EMAIL)}`;
 
 /* ── countUp hook ── */
 function useCountUp(target: number, duration = 1800) {
@@ -291,121 +296,6 @@ function HeadphonesIcon() {
   return <div className="relative shrink-0 size-[15px]"><svg className="absolute block size-full" fill="none" viewBox="0 0 15 15">
     <path d={svgPaths.p1f58da00} stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.35" strokeWidth="0.9375" />
   </svg></div>;
-}
-
-/* ────────────────────────────────────────────────────────
-   HEADER
-──────────────────────────────────────────────────────── */
-function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [visible, setVisible]   = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const hide = () => { if (window.scrollY > 80) setVisible(false); };
-    const reset = () => {
-      setVisible(true);
-      if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(hide, 7000);
-    };
-    const onScroll = () => { setScrolled(window.scrollY > 10); reset(); };
-
-    window.addEventListener('scroll',     onScroll, { passive: true });
-    window.addEventListener('mousemove',  reset,    { passive: true });
-    window.addEventListener('keydown',    reset,    { passive: true });
-    window.addEventListener('click',      reset,    { passive: true });
-    window.addEventListener('touchstart', reset,    { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll',     onScroll);
-      window.removeEventListener('mousemove',  reset);
-      window.removeEventListener('keydown',    reset);
-      window.removeEventListener('click',      reset);
-      window.removeEventListener('touchstart', reset);
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, []);
-
-  const navItems = [
-    { label: 'Каталог',      id: 'catalog'  },
-    { label: 'О нас',        id: 'about'    },
-    { label: 'Объекты',      id: 'objects'  },
-    { label: 'Наша команда', id: 'team'     },
-    { label: 'Контакты',     id: 'contacts' },
-  ];
-
-  const handleNav = (id: string) => {
-    scrollToSection(id);
-    setMenuOpen(false);
-  };
-
-  return (
-    <>
-      <div
-        className={[
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-          scrolled
-            ? 'bg-white/60 backdrop-blur-[18px] border-b border-white/30 shadow-sm'
-            : 'bg-white border-b border-[#d5d5d5]',
-          visible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0',
-        ].join(' ')}
-      >
-        <div className="flex items-center justify-between w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)] py-[16px] md:py-[20px] text-[14px] gap-3 min-w-0">
-          <button
-            type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="shrink-0 text-left font-['Cormorant_Garamond',sans-serif] font-light text-[#111] text-[20px] sm:text-[22px] md:text-[24px] leading-none tracking-[-0.5px] whitespace-nowrap transition-opacity duration-200 hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111]/20 rounded-sm"
-            aria-label="Интерио — наверх"
-          >
-            Интерио
-          </button>
-
-          <nav className="hidden md:flex items-center justify-end gap-[clamp(16px,2.5vw,32px)] whitespace-nowrap min-w-0">
-            {navItems.map(({ label, id }) => (
-              <button
-                key={id}
-                onClick={() => handleNav(id)}
-                className="font-['Raleway',sans-serif] font-light text-[13px] lg:text-[14px] text-[rgba(0,0,0,0.48)] hover:text-[#111] transition-colors duration-200 shrink-0"
-              >
-                {label}
-              </button>
-            ))}
-          </nav>
-
-          <button
-            className="md:hidden flex flex-col gap-[5px] justify-center items-center w-[40px] h-[40px] shrink-0"
-            onClick={() => setMenuOpen(o => !o)}
-            aria-label="Меню"
-          >
-            <span className={`block h-[1.5px] w-[22px] bg-[#111] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
-            <span className={`block h-[1.5px] w-[22px] bg-[#111] transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block h-[1.5px] w-[22px] bg-[#111] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile dropdown */}
-      <div
-        className={[
-          'fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-[18px] transition-all duration-400 md:hidden',
-          menuOpen ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-full opacity-0 pointer-events-none',
-        ].join(' ')}
-      >
-        <div className="flex flex-col pt-[80px] pb-[32px] px-6 gap-[4px]">
-          {navItems.map(({ label, id }) => (
-            <button
-              key={id}
-              onClick={() => handleNav(id)}
-              className="font-['Raleway',sans-serif] font-light text-[22px] text-[rgba(0,0,0,0.55)] hover:text-[#111] transition-colors duration-200 text-left py-[12px] border-b border-[rgba(0,0,0,0.06)] last:border-0"
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-    </>
-  );
 }
 
 /* ────────────────────────────────────────────────────────
@@ -921,6 +811,7 @@ function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
   const [toast, setToast] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validate = (f: typeof form) => ({
     name:  f.name.trim().length < 2 ? 'Введите имя (минимум 2 символа)' : '',
@@ -928,6 +819,7 @@ function ContactSection() {
   });
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (submitError) setSubmitError(null);
     const next = { ...form, [k]: e.target.value };
     setForm(next);
     if (touched[k as 'name' | 'phone']) {
@@ -948,17 +840,49 @@ function ContactSection() {
 
     try {
       setIsSubmitting(true);
+      setSubmitError(null);
 
-      // TODO: connect real backend/telegram/email later
-      await new Promise((r) => setTimeout(r, 450));
+      const res = await fetch(CONTACT_FORM_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          phone: form.phone.trim(),
+          comment: form.comment.trim() || "—",
+          _subject: CONTACT_FORM_SUBJECT,
+          _template: "table",
+          _captcha: false,
+        }),
+      });
+
+      let errMsg: string | null = null;
+      try {
+        const data = (await res.json()) as { success?: boolean | string; message?: string };
+        if (!res.ok) {
+          errMsg = typeof data.message === "string" ? data.message : "Не удалось отправить заявку.";
+        } else if (data.success === false || data.success === "false") {
+          errMsg = typeof data.message === "string" ? data.message : "Не удалось отправить заявку.";
+        }
+      } catch {
+        if (!res.ok) errMsg = "Сервер вернул некорректный ответ.";
+      }
+      if (errMsg) {
+        setSubmitError(errMsg);
+        return;
+      }
 
       setSent(true);
       setToast(true);
-      setForm({ name: '', phone: '', comment: '' });
+      setForm({ name: "", phone: "", comment: "" });
       setTouched({ name: false, phone: false });
-      setErrors({ name: '', phone: '' });
+      setErrors({ name: "", phone: "" });
       window.setTimeout(() => setSent(false), 4500);
       window.setTimeout(() => setToast(false), 4500);
+    } catch {
+      setSubmitError("Не удалось отправить заявку. Проверьте соединение и попробуйте снова.");
     } finally {
       setIsSubmitting(false);
     }
@@ -1060,6 +984,11 @@ function ContactSection() {
           </div>
 
           <div className="relative w-full">
+            {submitError && (
+              <p className="font-['Raleway',sans-serif] font-light text-[12px] text-[#e53e3e] mb-3" role="alert">
+                {submitError}
+              </p>
+            )}
             {toast && (
               <div
                 aria-live="polite"
@@ -1121,51 +1050,33 @@ function Footer() {
   return (
     <div className="bg-[#111] flex flex-col items-stretch overflow-x-hidden relative w-full min-w-0">
 
-      {/* Крупная надпись ИНТЕРИО — масштабируется на всех ширинах */}
       <div className="relative w-full border-b border-[rgba(255,255,255,0.08)] overflow-hidden">
-        <div className="w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,40px)] py-[clamp(20px,5vw,48px)]">
+        <div className="w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,40px)] py-[clamp(14px,4vw,32px)]">
           <p
             className="font-['Cormorant_Garamond',sans-serif] font-light text-[#4e4e4e] uppercase tracking-[-0.035em] leading-[0.88] m-0 select-none"
-            style={{ fontSize: 'clamp(52px, 15vw, 215px)' }}
+            style={{ fontSize: "clamp(48px, 14vw, 200px)" }}
           >
             ИНТЕРИО
           </p>
         </div>
       </div>
 
-      {/* CTA: единый ритм подпись + заголовок + кнопка */}
       <div className="relative w-full border-b border-[rgba(255,255,255,0.08)]">
-        <div className="w-full max-w-[1280px] mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-10 py-8 md:py-10 px-[clamp(16px,4vw,40px)] min-w-0">
-          <div className="flex flex-col gap-3 md:gap-[10px] items-start min-w-0 max-w-[640px]">
-            <p className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.4)] tracking-[1px] uppercase">
-              Готовы к сотрудничеству?
-            </p>
-            <p className="font-['Cormorant_Garamond',sans-serif] font-light text-white tracking-[-0.02em] leading-[1.15] text-[clamp(24px,5.5vw,41px)]">
-              Давайте начнём работать вместе
-              <span className="inline-block ml-1 align-baseline opacity-90">↗</span>
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => scrollToSection('contacts')}
-            className="bg-white h-[48px] md:h-[52px] rounded-[100px] w-full sm:w-auto min-w-0 sm:min-w-[220px] lg:w-[240px] flex gap-[8px] items-center justify-center hover:bg-[#f5f5f5] active:bg-[#ebebeb] transition-colors shrink-0 text-[#2b2a2a] px-6"
-          >
-            <ArrowUpRight />
-            <span className="font-['Raleway',sans-serif] font-medium text-[14px] md:text-[15px] text-center whitespace-nowrap">
-              Оставить заявку
-            </span>
-          </button>
+        <div className="w-full max-w-[1280px] mx-auto py-5 md:py-6 px-[clamp(16px,4vw,40px)] min-w-0">
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light text-white tracking-[-0.02em] leading-[1.2] text-[clamp(22px,4.5vw,36px)]">
+            Давайте начнём работать вместе
+            <span className="inline-block ml-1 align-baseline opacity-90">↗</span>
+          </p>
         </div>
       </div>
 
-      {/* Нижняя полоса */}
-      <div className="relative w-full py-5 md:py-6 min-w-0">
-        <div className="w-full max-w-[1280px] mx-auto flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-4 sm:gap-x-6 px-[clamp(16px,4vw,40px)] min-w-0">
-          <p className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.28)] order-3 sm:order-1 w-full sm:w-auto">
-            © 2025 Интерио · Все права защищены
+      <div className="relative w-full py-4 md:py-5 min-w-0">
+        <div className="w-full max-w-[1280px] mx-auto flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between px-[clamp(16px,4vw,40px)] min-w-0">
+          <p className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.28)] order-2 sm:order-1">
+            © {new Date().getFullYear()} Интерио · Все права защищены
           </p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2 items-center order-1 sm:order-2">
-            {[['Каталог', 'catalog'], ['О нас', 'about'], ['Контакты', 'contacts']].map(([label, id]) => (
+          <div className="flex flex-wrap gap-x-4 gap-y-2 items-center order-1 sm:order-2">
+            {[["Каталог", "catalog"], ["О нас", "about"], ["Контакты", "contacts"]].map(([label, id]) => (
               <button
                 key={id}
                 type="button"
@@ -1176,9 +1087,21 @@ function Footer() {
               </button>
             ))}
           </div>
-          <p className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.25)] order-2 sm:order-3 w-full sm:w-auto sm:text-right">
-            Политика конфиденциальности
-          </p>
+          <div className="flex flex-wrap gap-x-4 gap-y-1 items-center order-3 text-left sm:text-right">
+            <Link
+              to="/privacy"
+              className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.35)] hover:text-white transition-colors underline-offset-4 hover:underline"
+            >
+              Политика конфиденциальности
+            </Link>
+            <span className="text-[rgba(255,255,255,0.15)] hidden sm:inline">·</span>
+            <Link
+              to="/offer"
+              className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.35)] hover:text-white transition-colors underline-offset-4 hover:underline"
+            >
+              Публичная оферта
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -1188,7 +1111,7 @@ function Footer() {
 /* ────────────────────────────────────────────────────────
    ROOT
 ──────────────────────────────────────────────────────── */
-export default function App() {
+function HomePage() {
   return (
     <div className="bg-white flex flex-col items-center relative w-full min-h-screen overflow-x-hidden">
       <Header />
@@ -1208,5 +1131,15 @@ export default function App() {
         <Footer />
       </div>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/privacy" element={<PrivacyPage />} />
+      <Route path="/offer" element={<OfferPage />} />
+    </Routes>
   );
 }
