@@ -36,7 +36,7 @@ const CONTAINER = "w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,56px)]";
 const CONTAINER_NO_PX = "w-full max-w-[1280px] mx-auto";
 
 /** Заявки с формы → почта через https://formsubmit.co (первый раз подтвердите ящик в письме от FormSubmit). */
-const CONTACT_FORM_EMAIL = "davidsilver2038@gmail.com";
+const CONTACT_FORM_EMAIL = "info@interio.su";
 const CONTACT_FORM_SUBJECT = "заявка с сайта";
 const CONTACT_FORM_URL = `https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_FORM_EMAIL)}`;
 
@@ -338,13 +338,13 @@ function HeroSection() {
           <div className="flex flex-col md:flex-row gap-4 md:gap-[24px] items-start md:items-center w-full md:w-auto">
             <button
               onClick={() => scrollToSection('contacts')}
-              className="group relative overflow-hidden flex gap-[6px] h-[52px] md:h-[60px] items-center justify-center px-[24px] md:p-[10px] rounded-[100px] w-full md:w-[291px] border border-[rgba(0,0,0,0.25)] bg-white text-ink transition-[border-color,color,transform,box-shadow] duration-250 ease-out hover:text-white hover:border-black hover:shadow-[0_14px_30px_rgba(0,0,0,0.18)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.14)] shrink-0"
+              className="group relative overflow-hidden flex gap-[6px] h-[52px] md:h-[60px] items-center justify-center px-[24px] md:p-[10px] rounded-[100px] w-full md:w-[291px] border border-[rgba(0,0,0,0.25)] bg-white text-ink transition-[border-color,color,transform,box-shadow] duration-250 ease-out hover:text-ink hover:border-black hover:shadow-[0_14px_30px_rgba(0,0,0,0.18)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.14)] shrink-0"
             >
               <span
                 aria-hidden="true"
-                className="absolute inset-0 origin-left scale-x-0 bg-black transition-transform duration-500 ease-out group-hover:scale-x-100"
+                className="absolute inset-0 origin-left scale-x-0 bg-[#d5d5d5] transition-transform duration-500 ease-out group-hover:scale-x-100"
               />
-              <span className="relative z-10 flex gap-[6px] items-center text-ink group-hover:text-white transition-colors duration-300">
+              <span className="relative z-10 flex gap-[6px] items-center text-ink group-hover:text-ink transition-colors duration-300">
                 <ArrowUpRight />
               <p className="font-['Raleway',sans-serif] font-medium text-[14px] md:text-[16px] text-center whitespace-nowrap">
                 ОСТАВИТЬ ЗАЯВКУ
@@ -426,35 +426,25 @@ const PROBLEMS = [
 ];
 
 function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: string; Icon: React.ComponentType }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <div
       className="relative shrink-0 w-full cursor-default border-b-[0.8px] border-[rgba(0,0,0,0.06)] md:overflow-visible md:z-[1]"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       {/* Mobile */}
-      <div className="flex flex-col md:hidden transition-colors duration-200" style={{ backgroundColor: hovered ? '#f7f5f2' : '#fafafa' }}>
+      <div className="flex flex-col md:hidden" style={{ backgroundColor: '#fafafa' }}>
         <div className="flex gap-[12px] items-start px-4 py-3 min-w-0">
             <p className="font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] text-dim shrink-0 pt-[2px]">{num}</p>
           <p className="font-['Raleway',sans-serif] font-normal text-[12px] text-caption min-w-0 break-words">{prob}</p>
         </div>
         <div
-          className={`flex gap-[12px] items-center px-4 pb-3 origin-left transition-all duration-500 ease-out min-w-0 ${
-            hovered
-              ? 'scale-[1.03] rounded-[12px] bg-[#f0ede9] shadow-[0_12px_36px_rgba(0,0,0,0.1)] mx-3 mb-3 px-3 py-[10px]'
-              : ''
-          }`}
+          className="flex gap-[12px] items-center px-4 pb-3 origin-left min-w-0"
         >
           <div
-            className={`rounded-[6px] size-[28px] shrink-0 flex items-center justify-center transition-colors duration-500 ${
-              hovered ? 'bg-[rgba(0,0,0,0.1)]' : 'bg-[rgba(0,0,0,0.06)]'
-            }`}
+            className="rounded-[6px] size-[28px] shrink-0 flex items-center justify-center bg-[rgba(0,0,0,0.06)]"
           >
             <Icon />
           </div>
-          <p className={`font-['Raleway',sans-serif] font-medium text-[11px] min-w-0 transition-colors duration-500 ${hovered ? 'text-ink' : 'text-caption'}`}>
+          <p className="font-['Raleway',sans-serif] font-medium text-[11px] min-w-0 text-caption">
             {sol}
           </p>
         </div>
@@ -464,35 +454,27 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
       <div className="hidden md:flex h-[76.8px] relative overflow-visible">
         <div
           className="absolute left-0 top-0 w-1/2 h-full transition-colors duration-200"
-          style={{ backgroundColor: hovered ? '#f0ede9' : '#fafafa' }}
+          style={{ backgroundColor: '#fafafa' }}
         >
           <div className="absolute inset-0 border-b-[0.8px] border-r-[0.8px] border-[rgba(0,0,0,0.06)] pointer-events-none" />
           <div className="flex gap-[16px] md:gap-[20px] items-center h-full pl-[clamp(16px,3vw,40px)] pr-2 pb-[0.8px]">
-            <p className={`font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] whitespace-nowrap transition-colors duration-200 shrink-0 ${hovered ? 'text-caption' : 'text-dim'}`}>{num}</p>
-            <p className={`font-['Raleway',sans-serif] font-normal leading-[1.35] text-[12px] md:text-[12.16px] transition-colors duration-200 min-w-0 ${hovered ? 'text-ink' : 'text-caption'}`}>{prob}</p>
+            <p className="font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] whitespace-nowrap transition-colors duration-200 shrink-0 text-dim">{num}</p>
+            <p className="font-['Raleway',sans-serif] font-normal leading-[1.35] text-[12px] md:text-[12.16px] transition-colors duration-200 min-w-0 text-caption">{prob}</p>
           </div>
         </div>
         <div className="absolute left-1/2 top-0 w-1/2 h-full bg-white">
           <div className="absolute inset-0 border-b-[0.8px] border-[rgba(0,0,0,0.06)] pointer-events-none" />
           <div className="absolute inset-0 flex items-center pl-[clamp(12px,2vw,28px)] pr-[clamp(12px,2vw,20px)] pb-[0.8px]">
             <div
-              className={`flex gap-[14px] md:gap-[16px] items-center w-full rounded-[12px] py-[10px] pl-[10px] md:pl-[12px] pr-[12px] md:pr-[14px] origin-left transition-all duration-500 ease-out ${
-                hovered
-                  ? 'scale-[1.07] -translate-y-[1px] translate-x-[-2px] bg-[#f0ede9] shadow-[0_16px_44px_rgba(0,0,0,0.11)] relative z-20'
-                  : 'scale-100 translate-y-0 translate-x-0 shadow-none bg-transparent'
-              }`}
+              className="flex gap-[14px] md:gap-[16px] items-center w-full rounded-[12px] py-[10px] pl-[10px] md:pl-[12px] pr-[12px] md:pr-[14px] origin-left scale-100 translate-y-0 translate-x-0 shadow-none bg-transparent"
             >
               <div
-                className={`rounded-[8px] size-[34px] md:size-[36px] shrink-0 flex items-center justify-center transition-colors duration-500 ${
-                  hovered ? 'bg-[rgba(0,0,0,0.12)]' : 'bg-[rgba(0,0,0,0.06)]'
-                }`}
+                className="rounded-[8px] size-[34px] md:size-[36px] shrink-0 flex items-center justify-center bg-[rgba(0,0,0,0.06)]"
               >
                 <Icon />
               </div>
               <p
-                className={`font-['Raleway',sans-serif] font-medium leading-[1.25] transition-colors duration-500 min-w-0 ${
-                  hovered ? 'text-[12.5px] md:text-[13px] text-ink' : 'text-[11px] md:text-[11.84px] text-caption'
-                }`}
+                className="font-['Raleway',sans-serif] font-medium leading-[1.25] transition-colors duration-500 min-w-0 text-[11px] md:text-[11.84px] text-caption"
               >
                 {sol}
               </p>
@@ -527,18 +509,23 @@ function ProblemsSection() {
 /* ────────────────────────────────────────────────────────
    PARTNERS MARQUEE
 ──────────────────────────────────────────────────────── */
-/** Ширина одного слота в бегущей строке (4 уникальных логотипа = один цикл анимации). */
+/** Ширина одного базового слота в бегущей строке (4 уникальных логотипа = один цикл анимации). */
 const PARTNER_SLOT_PX = 240;
+const PARTNER_LOGOS = [
+  { src: imgImg, scale: 2 },  // Албес x2
+  { src: imgImg1, scale: 1 }, // Метрион
+  { src: imgImg2, scale: 2 }, // Forbo x2
+  { src: imgImg3, scale: 1 }, // Gerflor
+] as const;
 
 function PartnersSection() {
-  const logos = [imgImg, imgImg1, imgImg2, imgImg3, imgImg, imgImg1, imgImg2, imgImg3,
-                 imgImg, imgImg1, imgImg2, imgImg3, imgImg, imgImg1, imgImg2, imgImg3];
+  const logos = [...PARTNER_LOGOS, ...PARTNER_LOGOS, ...PARTNER_LOGOS, ...PARTNER_LOGOS];
   const [offset, setOffset] = useState(0);
   const rafRef = useRef<number>(0);
   const lastRef = useRef(0);
 
   useEffect(() => {
-    const cycle = PARTNER_SLOT_PX * 4;
+    const cycle = PARTNER_LOGOS.reduce((sum, item) => sum + PARTNER_SLOT_PX * item.scale, 0);
     const tick = (ts: number) => {
       if (lastRef.current) {
         setOffset(p => (p + (ts - lastRef.current) * 0.04) % cycle);
@@ -559,21 +546,25 @@ function PartnersSection() {
         </div>
       </div>
 
-      <div className="overflow-hidden w-full h-[88px] sm:h-[100px] md:h-[128px] relative border-y border-[rgba(0,0,0,0.05)] bg-[#fafafa]">
+      <div className="overflow-hidden w-full h-[96px] sm:h-[116px] md:h-[148px] relative border-y border-[rgba(0,0,0,0.05)] bg-[#fafafa]">
         <div
           className="flex items-center h-full absolute top-0 left-0 will-change-transform"
-          style={{ transform: `translateX(-${offset}px)`, width: `${PARTNER_SLOT_PX * logos.length}px` }}
+          style={{
+            transform: `translateX(-${offset}px)`,
+            width: `${logos.reduce((sum, item) => sum + PARTNER_SLOT_PX * item.scale, 0)}px`,
+          }}
         >
-          {logos.map((src, i) => (
+          {logos.map((item, i) => (
             <div
               key={i}
               className="h-full shrink-0 flex items-center justify-center px-2 sm:px-3 box-border"
-              style={{ width: PARTNER_SLOT_PX }}
+              style={{ width: PARTNER_SLOT_PX * item.scale }}
             >
               <img
                 alt=""
-                className="max-h-[42px] sm:max-h-[48px] md:max-h-[64px] w-full max-w-[200px] object-contain object-center grayscale opacity-[0.55] hover:grayscale-0 hover:opacity-100 transition-all duration-300 pointer-events-auto"
-                src={src}
+                className="w-full max-w-[320px] object-contain object-center grayscale opacity-[0.55] hover:grayscale-0 hover:opacity-100 transition-all duration-300 pointer-events-auto"
+                style={{ maxHeight: `${64 * item.scale}px` }}
+                src={item.src}
               />
             </div>
           ))}
@@ -707,43 +698,92 @@ const CATALOG_CARDS: CatalogCard[] = [
 ];
 
 function RotatingCatalog() {
-  const [paused, setPaused] = useState(false);
-  const cards = [...CATALOG_CARDS, ...CATALOG_CARDS];
+  const leftGroups = [
+    {
+      title: "Металлические потолки",
+      items: ["реечные потолки", "кассетные потолки", "грильято"],
+    },
+    {
+      title: "Акустические системы",
+      items: ["модульные акустические потолки", "акустические острова", "акустические потолки"],
+    },
+  ] as const;
+
+  const rightGroups = [
+    {
+      title: "Линолеум",
+      items: ["гетерогенный линолеум", "гомогенный линолеум", "натуральный линолеум"],
+    },
+    {
+      title: "Специальные покрытия",
+      items: [
+        "LVT покрытия",
+        "токопроводящие и токовоспринимающие покрытия",
+        "профессиональные покрытия",
+        "акустические напольные покрытия",
+      ],
+    },
+    {
+      title: "Системы входных зон",
+      items: ["грязезащитные входные системы", "влагопоглощающий ворс"],
+    },
+  ] as const;
 
   return (
-    <div className="relative w-full overflow-hidden">
-      <div
-        className="flex w-max gap-3 md:gap-4 py-1"
-        style={{ animation: "catalog-spin 32s linear infinite", animationPlayState: paused ? "paused" : "running" }}
-      >
-        {cards.map((card, idx) => (
-          <article
-            key={`${card.title}-${idx}`}
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            className="group relative h-[154px] md:h-[200px] w-[147px] md:w-[200px] shrink-0 overflow-hidden border border-[rgba(0,0,0,0.08)] bg-white flex flex-col"
+    <div className="grid grid-cols-1 md:grid-cols-2 w-full md:gap-[56px] gap-[28px]">
+      <div className="flex flex-col gap-[18px]">
+        <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[11px] text-dim uppercase tracking-[1px]">
+          потолочные системы
+        </p>
+
+        {leftGroups.map((group, idx) => (
+          <div
+            key={group.title}
+            className={`${idx === 0 ? "" : "border-t border-[rgba(0,0,0,0.08)] pt-[16px]"} flex flex-col gap-[10px]`}
           >
-            <div className="relative flex-1 w-full overflow-hidden">
-              <img alt={card.title} className="h-full w-full object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.03] group-hover:brightness-[0.88]" src={card.image} />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08)_30%,rgba(0,0,0,0.64)_100%)]" />
-
-              <div className="absolute left-3 right-3 md:left-4 md:right-4 bottom-3 md:bottom-4 rounded-[8px] border border-[rgba(255,255,255,0.22)] bg-[rgba(17,17,17,0.74)] px-3 py-2 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                <p className="font-['Raleway',sans-serif] font-light text-[11px] md:text-[12px] leading-[1.4] text-[rgba(255,255,255,0.92)]">
-                  {card.description}
-                </p>
-              </div>
-            </div>
-
-            <div className="w-full bg-[rgba(17,17,17,0.92)] px-2 py-1.5 md:px-3 md:py-2">
-              <p className="font-['Cormorant_Garamond',sans-serif] font-light text-[12px] md:text-[14px] text-white leading-[1.1] whitespace-nowrap overflow-hidden text-ellipsis">
-                {card.title}
-              </p>
-            </div>
-          </article>
+            <p className="font-['Raleway',sans-serif] font-normal text-[12px] md:text-[13px] text-ink leading-[1.2]">
+              {group.title}
+            </p>
+            <ul className="list-disc list-inside pl-[10px]">
+              {group.items.map((it) => (
+                <li
+                  key={it}
+                  className="font-['Raleway',sans-serif] font-light text-[11px] md:text-[12px] text-caption leading-[1.5]"
+                >
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-[56px] md:w-[96px] bg-[linear-gradient(90deg,rgba(17,17,17,0.62)_0%,rgba(17,17,17,0)_100%)]" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-[56px] md:w-[96px] bg-[linear-gradient(270deg,rgba(17,17,17,0.62)_0%,rgba(17,17,17,0)_100%)]" />
+
+      <div className="flex flex-col gap-[18px]">
+        <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[11px] text-dim uppercase tracking-[1px]">
+          коммерческие напольные покрытия
+        </p>
+
+        {rightGroups.map((group, idx) => (
+          <div
+            key={group.title}
+            className={`${idx === 0 ? "" : "border-t border-[rgba(0,0,0,0.08)] pt-[16px]"} flex flex-col gap-[10px]`}
+          >
+            <p className="font-['Raleway',sans-serif] font-normal text-[12px] md:text-[13px] text-ink leading-[1.2]">
+              {group.title}
+            </p>
+            <ul className="list-disc list-inside pl-[10px]">
+              {group.items.map((it) => (
+                <li
+                  key={it}
+                  className="font-['Raleway',sans-serif] font-light text-[11px] md:text-[12px] text-caption leading-[1.5]"
+                >
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -753,7 +793,11 @@ function MaterialsSection() {
     <div id="catalog" className={`flex flex-col items-start ${CONTAINER}`}>
       <div className="flex flex-col gap-3 md:gap-[20px] items-start pb-6 md:pb-[40px] w-full">
         <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">наши решения</p>
-        <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[24px] md:text-[36px]">Материалы для коммерческих и социальных объектов</p>
+        <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[24px] md:text-[36px]">
+          Материалы для коммерческих
+          <br />
+          и социальных объектов
+        </p>
       </div>
 
       <div className="w-full border-t-[0.8px] border-[rgba(0,0,0,0.08)] pt-[16px] md:pt-[22px]">
@@ -965,13 +1009,11 @@ function ContactSection() {
             {/* Comment */}
             <div className="flex flex-col gap-[8px] items-start w-full">
               <p className="font-['Raleway',sans-serif] font-light text-caption text-[12px]">
-                Комментарий&nbsp;&nbsp;
-                <span className="text-dim">* </span>
-                <span className="italic text-dim">необязательно</span>
+                Комментарий
               </p>
               <div className="bg-white h-[100px] md:h-[126px] rounded-[8px] w-full border border-[#eaeaea] focus-within:border-[rgba(0,0,0,0.25)] transition-colors duration-150">
                 <textarea
-                  placeholder="Тип объекта, площадь, сроки..."
+                  placeholder=""
                   value={form.comment}
                   onChange={set('comment')}
                   disabled={isSubmitting}
@@ -1006,11 +1048,17 @@ function ContactSection() {
               className={`h-[52px] md:h-[60px] rounded-[100px] w-full flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed transition-[transform,box-shadow,background-color] duration-260 ease-out ${
                 sent
                   ? 'bg-[#22c55e] hover:bg-[#16a34a]'
-                  : 'bg-black text-[#fcf8f8] hover:shadow-[0_14px_30px_rgba(0,0,0,0.35)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.28)]'
+                  : 'bg-white text-ink border border-[rgba(0,0,0,0.25)] relative overflow-hidden group hover:border-black hover:shadow-[0_14px_30px_rgba(0,0,0,0.18)] hover:-translate-y-[1px] active:translate-y-0 active:shadow-[0_8px_18px_rgba(0,0,0,0.24)]'
               }`}
             >
+              {!sent && (
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 origin-left scale-x-0 bg-[#d5d5d5] transition-transform duration-500 ease-out group-hover:scale-x-100"
+                />
+              )}
               {isSubmitting ? (
-                <p className="font-['Raleway',sans-serif] font-medium text-white text-[14px] md:text-[16px] text-center whitespace-nowrap">
+                <p className="font-['Raleway',sans-serif] font-medium text-ink text-[14px] md:text-[16px] text-center whitespace-nowrap">
                   ОТПРАВЛЯЕМ...
                 </p>
               ) : sent ? (
@@ -1046,31 +1094,31 @@ function ContactSection() {
 ──────────────────────────────────────────────────────── */
 function Footer() {
   return (
-    <div className="bg-black flex flex-col items-stretch overflow-x-hidden relative w-full min-w-0">
+    <div className="bg-[#fafafa] flex flex-col items-stretch overflow-x-hidden relative w-full min-w-0">
 
-      <div className="relative w-full border-b border-[rgba(255,255,255,0.08)] overflow-hidden">
-        <div className="w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,40px)] py-[clamp(14px,4vw,32px)]">
+      <div className="relative w-full overflow-hidden">
+        <div className="w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,40px)] py-[clamp(8px,2.8vw,18px)]">
           <p
-            className="font-['Cormorant_Garamond',sans-serif] font-light text-white/25 uppercase tracking-[-0.035em] leading-[0.88] m-0 select-none"
-            style={{ fontSize: "clamp(48px, 14vw, 200px)" }}
+            className="font-['Cormorant_Garamond',sans-serif] font-light text-ink/25 uppercase tracking-[-0.03em] leading-[0.86] m-0 select-none text-center"
+            style={{ fontSize: "clamp(32px, 9.5vw, 140px)" }}
           >
             ИНТЕРИО
           </p>
         </div>
       </div>
 
-      <div className="relative w-full border-b border-[rgba(255,255,255,0.08)]">
-        <div className="w-full max-w-[1280px] mx-auto py-5 md:py-6 px-[clamp(16px,4vw,40px)] min-w-0">
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light text-white tracking-[-0.02em] leading-[1.2] text-[clamp(22px,4.5vw,36px)]">
+      <div className="relative w-full border-b border-[rgba(0,0,0,0.06)]">
+        <div className="w-full max-w-[1280px] mx-auto py-4 md:py-5 px-[clamp(16px,4vw,40px)] min-w-0">
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light text-ink/85 tracking-[-0.02em] leading-[1.2] text-[clamp(20px,4.3vw,34px)] text-center">
             Давайте начнём работать вместе
-            <span className="inline-block ml-1 align-baseline opacity-90">↗</span>
+            <span className="inline-block ml-1 align-baseline opacity-70">↗</span>
           </p>
         </div>
       </div>
 
-      <div className="relative w-full py-4 md:py-5 min-w-0">
+      <div className="relative w-full py-3 md:py-4 min-w-0">
         <div className="w-full max-w-[1280px] mx-auto flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between px-[clamp(16px,4vw,40px)] min-w-0">
-          <p className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.28)] order-2 sm:order-1">
+          <p className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(0,0,0,0.28)] order-2 sm:order-1">
             © {new Date().getFullYear()} Интерио · Все права защищены
           </p>
           <div className="flex flex-wrap gap-x-4 gap-y-2 items-center order-1 sm:order-2">
@@ -1079,7 +1127,7 @@ function Footer() {
                 key={id}
                 type="button"
                 onClick={() => scrollToSection(id)}
-                className="font-['Raleway',sans-serif] font-medium text-[11px] md:text-[12px] text-[rgba(255,255,255,0.45)] hover:text-white transition-colors text-left"
+                className="font-['Raleway',sans-serif] font-medium text-[11px] md:text-[12px] text-[rgba(0,0,0,0.45)] hover:text-ink transition-colors text-left"
               >
                 {label}
               </button>
@@ -1088,14 +1136,14 @@ function Footer() {
           <div className="flex flex-wrap gap-x-4 gap-y-1 items-center order-3 text-left sm:text-right">
             <Link
               to="/privacy"
-              className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.35)] hover:text-white transition-colors underline-offset-4 hover:underline"
+              className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(0,0,0,0.35)] hover:text-ink transition-colors underline-offset-4 hover:underline"
             >
               Политика конфиденциальности
             </Link>
-            <span className="text-[rgba(255,255,255,0.15)] hidden sm:inline">·</span>
+            <span className="text-[rgba(0,0,0,0.15)] hidden sm:inline">·</span>
             <Link
               to="/offer"
-              className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(255,255,255,0.35)] hover:text-white transition-colors underline-offset-4 hover:underline"
+              className="font-['Raleway',sans-serif] font-normal text-[10px] md:text-[11px] text-[rgba(0,0,0,0.35)] hover:text-ink transition-colors underline-offset-4 hover:underline"
             >
               Публичная оферта
             </Link>
