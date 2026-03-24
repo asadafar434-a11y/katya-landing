@@ -15,8 +15,6 @@ import {
   UtensilsCrossed,
   Home,
 } from "lucide-react";
-import imgMotionImg from "../assets/figma/eaa78224c1974336e9569a3de872efd11b38eede.png";
-import imgMotionImg1 from "../assets/figma/6f8aa6e99331d89a2b603a64cb9fc08afd48d117.png";
 import imgImg from "../assets/figma/4b4e7ebacda091e49ac45b9c07bb7e2f2811bcfa.png";
 import imgImg1 from "../assets/figma/d8467976fafa9b0e4d5b109b3ee5abeeb6c55d04.png";
 import imgImg2 from "../assets/figma/e179ea00bc84283ae34bc53b381b155bb9dd3ee5.png";
@@ -29,6 +27,13 @@ import imgImg5 from "../assets/figma/baa8f94eb93145e8af6d7b9c517c4e6e4d145e3b.pn
 import imgImg6 from "../assets/figma/f3be4cf1ef97adc392cde42f4fda364118585941.png";
 import imgImg7 from "../assets/figma/39a6cd04526fde7b1db41654cff0b154bac7fa56.png";
 import imgImage from "../assets/figma/c05c3cb162faebf9de2b56030eedc3d21a8313f7.png";
+import imgProjectsSport from "../assets/figma/projects-sport.png";
+import imgProjectsEducation from "../assets/figma/projects-education.png";
+import imgProjectsMedicine from "../assets/figma/projects-medicine.png";
+import imgHeroLeft from "../assets/figma/hero-left.png";
+import imgHeroRight from "../assets/figma/hero-right.png";
+import imgTeamDirector from "../assets/figma/team-director.png";
+import imgTeamSfoRepresentative from "../assets/figma/team-sfo-representative.png";
 
 // Unified content width. Side paddings should be noticeable but not "too wide".
 // clamp(16px, 4vw, 64px): mobile 16px, grows with viewport, capped at 64px.
@@ -325,10 +330,10 @@ function HeroSection() {
           {/* Two images — on mobile only 1 photo so CTA fits on screen */}
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-0 md:justify-between w-full">
             <div className="h-[150px] md:h-[320px] w-full md:w-[49.5%] overflow-hidden">
-              <img alt="" className="w-full h-full object-cover" src={imgMotionImg} />
+              <img alt="" className="w-full h-full object-cover" src={imgHeroLeft} />
             </div>
             <div className="hidden md:block h-[320px] w-[49.5%] overflow-hidden">
-              <img alt="" className="w-full h-full object-cover" src={imgMotionImg1} />
+              <img alt="" className="w-full h-full object-cover" src={imgHeroRight} />
             </div>
           </div>
         </div>
@@ -635,9 +640,9 @@ function ProjectsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-[12px] pt-[12px] md:pt-[20px] w-full">
           {[
-            { img: imgMotionImg2, cat: 'Спорт',      title: 'Ледовые арены и стадионы' },
-            { img: imgMotionImg3, cat: 'Медицина',    title: 'Медицинские центры и клиники' },
-            { img: imgMotionImg4, cat: 'Образование', title: 'Образовательные учреждения' },
+            { img: imgProjectsSport, cat: 'Спорт', title: 'Ледовые арены и стадионы' },
+            { img: imgProjectsEducation, cat: 'Образование', title: 'Образовательные учреждения' },
+            { img: imgProjectsMedicine, cat: 'Медицина', title: 'Медицинские центры и клиники' },
           ].map(({ img, cat, title }) => (
             <div key={cat} className="flex flex-col gap-[8px] items-start">
               <div className="h-[220px] md:h-[266px] w-full overflow-hidden">
@@ -811,11 +816,42 @@ function MaterialsSection() {
    TEAM
 ──────────────────────────────────────────────────────── */
 function TeamSection() {
+  const toTelHref = (phone: string) => {
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length === 11 && digits.startsWith("8")) return `tel:+7${digits.slice(1)}`;
+    if (digits.length === 11 && digits.startsWith("7")) return `tel:+${digits}`;
+    return `tel:${digits}`;
+  };
+
   const members = [
-    { img: imgImg4, name: 'Алексей Морозов',  role: 'Руководитель проекта', email: 'Morozov@interio.ru' },
-    { img: imgImg5, name: 'Елена Соколова',   role: 'Бухгалтер',            email: 'Sokolova@interio.ru' },
-    { img: imgImg6, name: 'Дмитрий Кузнецов', role: 'Начальник отдела',     email: 'Kuznetsov@interio.ru' },
-    { img: imgImg7, name: 'Жанна Климова',    role: 'Менеджер',             email: 'Klimova@interio.ru' },
+    {
+      img: imgTeamDirector,
+      role: 'Директор',
+      name: 'Маланчук Екатерина Викторовна',
+      phone: '8-996-974-38-39',
+      email: 'ed@interio.su',
+    },
+    {
+      img: imgTeamSfoRepresentative,
+      role: 'Представитель в Сибирском Федеральном округе',
+      name: 'Акатова Наталья Андреевна',
+      phone: '8-913-474-92-41',
+      email: 'nsk@interio.su',
+    },
+    {
+      img: imgImg6,
+      role: 'Менеджер проектов',
+      name: 'Кузнецов Дмитрий Андреевич',
+      phone: '8-921-452-11-07',
+      email: 'kuznetsov@interio.su',
+    },
+    {
+      img: imgImg7,
+      role: 'Руководитель тендерного отдела',
+      name: 'Климова Жанна Сергеевна',
+      phone: '8-901-118-74-25',
+      email: 'tender@interio.su',
+    },
   ];
   return (
     <div id="team" className="w-full">
@@ -824,17 +860,34 @@ function TeamSection() {
           <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Наша команда</p>
           <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[24px] md:text-[36px]">Специалисты, которые решают задачи</p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-[12px] pt-2 md:pt-[20px] w-full">
-          {members.map(({ img, name, role, email }) => (
-            <div key={name} className="flex flex-col gap-[8px] items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-6 sm:gap-y-7 md:gap-[12px] pt-2 md:pt-[20px] w-full items-start">
+          {members.map(({ img, name, role, phone, email }) => (
+            <div key={name} className="flex flex-col gap-[8px] items-start h-full">
               <div className="h-[200px] md:h-[368px] w-full overflow-hidden">
                 <img alt="" className="w-full h-full object-cover" src={img} />
               </div>
-              <div className="flex flex-col gap-[4px] md:gap-[8px] items-start w-full">
-                <p className="font-['Cormorant_Garamond',sans-serif] font-medium text-[16px] md:text-[20px] w-full text-ink">{name}</p>
-                <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[12px] w-full text-caption">{role}</p>
+              <div className="flex flex-col gap-[3px] md:gap-[2px] items-start w-full">
+                <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[12px] leading-[1.35] w-full text-caption min-h-[18px] md:min-h-[34px]">
+                  {role}
+                </p>
+                <div className="flex flex-col gap-[3px] md:gap-[6px] w-full">
+                  <p className="font-['Cormorant_Garamond',sans-serif] font-medium leading-[1.08] text-[16px] md:text-[20px] w-full text-ink min-h-0 md:min-h-[36px]">
+                    {name}
+                  </p>
+                  <a
+                    href={toTelHref(phone)}
+                    className="md:hidden font-['Raleway',sans-serif] font-medium leading-[1.2] text-[11px] w-full text-[#5f88e8]"
+                  >
+                    {phone}
+                  </a>
+                  <p className="hidden md:block font-['Raleway',sans-serif] font-light leading-[1.2] text-caption text-[12px] w-full">
+                    {phone}
+                  </p>
+                  <p className="font-['Raleway',sans-serif] font-light leading-[1.2] text-caption text-[11px] md:text-[12px] w-full">
+                    {email}
+                  </p>
+                </div>
               </div>
-              <p className="font-['Raleway',sans-serif] font-light text-caption text-[10px] md:text-[12px] w-full">{email}</p>
             </div>
           ))}
         </div>
