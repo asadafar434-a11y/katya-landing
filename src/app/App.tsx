@@ -22,10 +22,6 @@ import imgImg3 from "../assets/figma/96e27b212c9ef3caf4486da3ef6e5d542b0da8cb.pn
 import imgMotionImg2 from "../assets/figma/11e78a53d33540d5ee0c02d20f0384e48fea1024.png";
 import imgMotionImg3 from "../assets/figma/54d5dedadd306f34fd1cefef0856fca7581d745f.png";
 import imgMotionImg4 from "../assets/figma/de7a5ccc8597df4faa089b2ce62a024aba49609c.png";
-import imgImg4 from "../assets/figma/19db15375fd2e65a1cd75b71a8214a338ae24716.png";
-import imgImg5 from "../assets/figma/baa8f94eb93145e8af6d7b9c517c4e6e4d145e3b.png";
-import imgImg6 from "../assets/figma/f3be4cf1ef97adc392cde42f4fda364118585941.png";
-import imgImg7 from "../assets/figma/39a6cd04526fde7b1db41654cff0b154bac7fa56.png";
 import imgImage from "../assets/figma/c05c3cb162faebf9de2b56030eedc3d21a8313f7.png";
 import imgProjectsSport from "../assets/figma/projects-sport.png";
 import imgProjectsEducation from "../assets/figma/projects-education.png";
@@ -34,6 +30,7 @@ import imgHeroLeft from "../assets/figma/hero-left.png";
 import imgHeroRight from "../assets/figma/hero-right.png";
 import imgTeamDirector from "../assets/figma/team-director.png";
 import imgTeamSfoRepresentative from "../assets/figma/team-sfo-representative.png";
+import imgTeamSalesSpecialist from "../assets/figma/team-sales-specialist.png";
 
 // Unified content width. Side paddings should be noticeable but not "too wide".
 // clamp(16px, 4vw, 64px): mobile 16px, grows with viewport, capped at 64px.
@@ -706,45 +703,49 @@ function RotatingCatalog() {
   const leftGroups = [
     {
       title: "Металлические потолки",
-      items: ["реечные потолки", "кассетные потолки", "грильято"],
+      items: [
+        "Реечные потолки",
+        "Грильято",
+        "Панели HOOK-ON",
+        "Подвесные системы",
+        "Кассетные потолки",
+        "Острова разных форм",
+      ],
     },
     {
       title: "Акустические системы",
-      items: ["модульные акустические потолки", "акустические острова", "акустические потолки"],
+      items: ["Модульные акустические потолки", "Акустические острова"],
     },
   ] as const;
 
   const rightGroups = [
     {
       title: "Линолеум",
-      items: ["гетерогенный линолеум", "гомогенный линолеум", "натуральный линолеум"],
+      items: ["Гетерогенный и Гомогенный линолеум", "Натуральный линолеум"],
     },
     {
       title: "Специальные покрытия",
       items: [
         "LVT покрытия",
-        "токопроводящие и токовоспринимающие покрытия",
-        "профессиональные покрытия",
-        "акустические напольные покрытия",
+        "Спортивные покрытия",
+        "Токопроводящие и токорассеивающие",
+        "Противоскользящие покрытия",
+        "Акустический линолеум",
+        "Грязезащитные входные системы",
       ],
-    },
-    {
-      title: "Системы входных зон",
-      items: ["грязезащитные входные системы", "влагопоглощающий ворс"],
     },
   ] as const;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 w-full md:gap-[56px] gap-[28px]">
-      <div className="flex flex-col gap-[18px]">
-        <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[11px] text-dim uppercase tracking-[1px]">
-          потолочные системы
+    <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-[28px] md:gap-[40px] pb-[10px] md:pb-[12px]">
+      <div className="flex flex-col">
+        <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[11px] text-dim uppercase tracking-[1px] mb-[10px]">
+          Потолочные системы
         </p>
-
-        {leftGroups.map((group, idx) => (
+        {leftGroups.map((group) => (
           <div
             key={group.title}
-            className={`${idx === 0 ? "" : "border-t border-[rgba(0,0,0,0.08)] pt-[16px]"} flex flex-col gap-[10px]`}
+            className="py-[6px] md:py-[8px] flex flex-col gap-[8px]"
           >
             <p className="font-['Raleway',sans-serif] font-normal text-[12px] md:text-[13px] text-ink leading-[1.2]">
               {group.title}
@@ -763,15 +764,14 @@ function RotatingCatalog() {
         ))}
       </div>
 
-      <div className="flex flex-col gap-[18px]">
-        <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[11px] text-dim uppercase tracking-[1px]">
-          коммерческие напольные покрытия
+      <div className="flex flex-col">
+        <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[11px] text-dim uppercase tracking-[1px] mb-[10px]">
+          Коммерческие напольные покрытия
         </p>
-
-        {rightGroups.map((group, idx) => (
+        {rightGroups.map((group) => (
           <div
             key={group.title}
-            className={`${idx === 0 ? "" : "border-t border-[rgba(0,0,0,0.08)] pt-[16px]"} flex flex-col gap-[10px]`}
+            className="py-[6px] md:py-[8px] flex flex-col gap-[8px]"
           >
             <p className="font-['Raleway',sans-serif] font-normal text-[12px] md:text-[13px] text-ink leading-[1.2]">
               {group.title}
@@ -839,18 +839,11 @@ function TeamSection() {
       email: 'nsk@interio.su',
     },
     {
-      img: imgImg6,
-      role: 'Менеджер проектов',
-      name: 'Кузнецов Дмитрий Андреевич',
-      phone: '8-921-452-11-07',
-      email: 'kuznetsov@interio.su',
-    },
-    {
-      img: imgImg7,
-      role: 'Руководитель тендерного отдела',
-      name: 'Климова Жанна Сергеевна',
-      phone: '8-901-118-74-25',
-      email: 'tender@interio.su',
+      img: imgTeamSalesSpecialist,
+      role: 'Главный специалист отдела продаж',
+      name: 'Миляева Валерия Сергеевна',
+      phone: '8-999-466-03-36 (только ТГ, WhatsApp)',
+      email: 'vm@interio.su',
     },
   ];
   return (
@@ -860,7 +853,7 @@ function TeamSection() {
           <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Наша команда</p>
           <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[24px] md:text-[36px]">Специалисты, которые решают задачи</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-6 sm:gap-y-7 md:gap-[12px] pt-2 md:pt-[20px] w-full items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-6 sm:gap-y-7 md:gap-[12px] pt-2 md:pt-[20px] w-full items-start">
           {members.map(({ img, name, role, phone, email }) => (
             <div key={name} className="flex flex-col gap-[8px] items-start h-full">
               <div className="h-[200px] md:h-[368px] w-full overflow-hidden">
@@ -1166,6 +1159,25 @@ function Footer() {
             Давайте начнём работать вместе
             <span className="inline-block ml-1 align-baseline opacity-70">↗</span>
           </p>
+        </div>
+      </div>
+
+      <div className="relative w-full border-b border-[rgba(0,0,0,0.06)]">
+        <div className="w-full max-w-[1280px] mx-auto py-4 md:py-5 px-[clamp(16px,4vw,40px)] min-w-0">
+          <div className="flex flex-col gap-[6px] md:gap-[8px]">
+            <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">
+              Реквизиты
+            </p>
+            <p className="font-['Raleway',sans-serif] font-light text-[11px] md:text-[12px] text-[rgba(0,0,0,0.58)] leading-[1.45]">
+              ООО «ИНТЕРИО»
+            </p>
+            <p className="font-['Raleway',sans-serif] font-light text-[11px] md:text-[12px] text-[rgba(0,0,0,0.58)] leading-[1.45]">
+              ИНН 5401958336 · КПП 772301001 · ОГРН 1155476131546
+            </p>
+            <p className="font-['Raleway',sans-serif] font-light text-[11px] md:text-[12px] text-[rgba(0,0,0,0.58)] leading-[1.45]">
+              Юридический адрес: 109316, г. Москва, Волгоградский пр-кт, д. 32/3, к. 5, кв. 84
+            </p>
+          </div>
         </div>
       </div>
 
