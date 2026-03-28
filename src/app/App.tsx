@@ -22,7 +22,7 @@ import imgImg3 from "../assets/figma/96e27b212c9ef3caf4486da3ef6e5d542b0da8cb.pn
 import imgMotionImg2 from "../assets/figma/11e78a53d33540d5ee0c02d20f0384e48fea1024.png";
 import imgMotionImg3 from "../assets/figma/54d5dedadd306f34fd1cefef0856fca7581d745f.png";
 import imgMotionImg4 from "../assets/figma/de7a5ccc8597df4faa089b2ce62a024aba49609c.png";
-import imgImage from "../assets/figma/c05c3cb162faebf9de2b56030eedc3d21a8313f7.png";
+import imgContactSection from "../assets/figma/contact-section.png";
 import imgProjectsSport from "../assets/figma/projects-sport.png";
 import imgProjectsEducation from "../assets/figma/projects-education.png";
 import imgProjectsMedicine from "../assets/figma/projects-medicine.png";
@@ -410,7 +410,7 @@ function AboutSection() {
         <CategoryCard icon={<Dumbbell {...iconProps} />} title="Спорт" subtitle="арены, стадионы, фитнес" />
         <CategoryCard icon={<Theater {...iconProps} />} title="Культура" subtitle="театры, музеи, кино" />
         <CategoryCard icon={<UtensilsCrossed {...iconProps} />} title="HORECA" subtitle="отели, рестораны, кафе" />
-        <CategoryCard icon={<Home {...iconProps} />} title="Жилые комплексы" subtitle="МОПы, холлы, подъезды" />
+        <CategoryCard icon={<Home {...iconProps} />} title="Жилые комплексы" subtitle="МОПы, холлы" />
       </div>
     </div>
   );
@@ -423,8 +423,8 @@ const PROBLEMS = [
   { num: '01', prob: 'Отсутствие компетентной технической поддержки', sol: 'Анализ проектной документации',       Icon: DocIcon },
   { num: '02', prob: 'Сложности в выборе и согласовании материалов',   sol: 'Подбор и согласование материалов',   Icon: BoxesIcon },
   { num: '03', prob: 'Невыгодные закупочные условия у посредников',    sol: 'Прямые цены — без посредников',       Icon: ShieldIcon },
-  { num: '04', prob: 'Ошибки в проектных решениях на этапе спецификации', sol: 'Личный менеджер на весь проект',  Icon: PersonIcon },
-  { num: '05', prob: 'Отсутствие сопровождения проекта от начала до конца', sol: 'Поддержка на этапе монтажа',   Icon: HeadphonesIcon },
+  { num: '04', prob: 'Ошибки в проектной документации', sol: 'Актуальная база решений, отвечающая современным требованиям',  Icon: PersonIcon },
+  { num: '05', prob: 'Отсутствие сопровождения проекта от начала до конца', sol: 'Поддержка на всех этапах до реализации',   Icon: HeadphonesIcon },
 ];
 
 function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: string; Icon: React.ComponentType }) {
@@ -452,21 +452,21 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
         </div>
       </div>
 
-      {/* Desktop: решение справа «подъезжает» и увеличивается при hover — все 5 строк */}
-      <div className="hidden md:flex h-[76.8px] relative overflow-visible">
+      {/* Desktop: две колонки в потоке, чтобы строки могли расти по высоте при длинном тексте */}
+      <div className="hidden md:flex min-h-[76.8px] w-full items-stretch relative overflow-visible">
         <div
-          className="absolute left-0 top-0 w-1/2 h-full transition-colors duration-200"
+          className="w-1/2 shrink-0 relative flex transition-colors duration-200"
           style={{ backgroundColor: '#fafafa' }}
         >
           <div className="absolute inset-0 border-b-[0.8px] border-r-[0.8px] border-[rgba(0,0,0,0.06)] pointer-events-none" />
-          <div className="flex gap-[16px] md:gap-[20px] items-center h-full pl-[clamp(16px,3vw,40px)] pr-2 pb-[0.8px]">
+          <div className="relative z-[1] flex gap-[16px] md:gap-[20px] items-center min-h-[76.8px] py-3 pl-[clamp(16px,3vw,40px)] pr-2 w-full">
             <p className="font-['Raleway',sans-serif] font-semibold text-[8.96px] tracking-[0.896px] whitespace-nowrap transition-colors duration-200 shrink-0 text-dim">{num}</p>
             <p className="font-['Raleway',sans-serif] font-normal leading-[1.35] text-[12px] md:text-[12.16px] transition-colors duration-200 min-w-0 text-caption">{prob}</p>
           </div>
         </div>
-        <div className="absolute left-1/2 top-0 w-1/2 h-full bg-white">
+        <div className="w-1/2 shrink-0 relative flex bg-white">
           <div className="absolute inset-0 border-b-[0.8px] border-[rgba(0,0,0,0.06)] pointer-events-none" />
-          <div className="absolute inset-0 flex items-center pl-[clamp(12px,2vw,28px)] pr-[clamp(12px,2vw,20px)] pb-[0.8px]">
+          <div className="relative z-[1] flex items-center min-h-[76.8px] py-3 pl-[clamp(12px,2vw,28px)] pr-[clamp(12px,2vw,20px)] w-full">
             <div
               className="flex gap-[14px] md:gap-[16px] items-center w-full rounded-[12px] py-[10px] pl-[10px] md:pl-[12px] pr-[12px] md:pr-[14px] origin-left scale-100 translate-y-0 translate-x-0 shadow-none bg-transparent"
             >
@@ -597,7 +597,7 @@ function StatItem({ target, suffix, label }: {
 }
 
 function StatYears() {
-  const { ref, count } = useCountUp(10, 1600);
+  const { ref, count } = useCountUp(11, 1600);
   return (
     <div ref={ref} className="flex flex-col gap-[4px] md:gap-[8px] items-center flex-1 min-w-[110px] md:min-w-[160px]">
       <p className="font-['Cormorant_Garamond',sans-serif] font-light text-ink text-[32px] md:text-[48px] text-center w-full whitespace-nowrap">
@@ -985,7 +985,7 @@ function ContactSection() {
 
         {/* Image — hidden on small mobile, shown from sm */}
         <div className="hidden sm:block flex-1 h-[280px] md:h-[536px] md:mt-[12px] overflow-hidden relative w-full">
-          <img alt="" className="absolute inset-0 w-full h-full object-cover" src={imgImage} />
+          <img alt="" className="absolute inset-0 w-full h-full object-cover" src={imgContactSection} />
           <div
             className="absolute bg-[rgba(17,17,17,0.38)] backdrop-blur-[10px] border border-[rgba(255,255,255,0.22)] shadow-[0_18px_50px_rgba(0,0,0,0.25)] flex flex-col gap-[10px] md:gap-[12px] items-start pl-[16px] md:pl-[22px] py-[14px] md:py-[18px] rounded-[10px] w-[calc(100%-32px)] md:w-[350px]"
             style={{ left: '50%', bottom: '24px', transform: 'translateX(-50%)' }}
@@ -1143,10 +1143,10 @@ function Footer() {
     <div className="bg-[#fafafa] flex flex-col items-stretch overflow-x-hidden relative w-full min-w-0">
 
       <div className="relative w-full overflow-hidden">
-        <div className="w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,40px)] py-[clamp(8px,2.8vw,18px)]">
+        <div className="w-full max-w-[1280px] mx-auto px-[clamp(16px,4vw,40px)] py-[clamp(4px,1.4vw,9px)]">
           <p
             className="font-['Cormorant_Garamond',sans-serif] font-light text-ink/25 uppercase tracking-[-0.03em] leading-[0.86] m-0 select-none text-center"
-            style={{ fontSize: "clamp(32px, 9.5vw, 140px)" }}
+            style={{ fontSize: "clamp(16px, 4.75vw, 70px)" }}
           >
             ИНТЕРИО
           </p>
@@ -1154,8 +1154,8 @@ function Footer() {
       </div>
 
       <div className="relative w-full border-b border-[rgba(0,0,0,0.06)]">
-        <div className="w-full max-w-[1280px] mx-auto py-4 md:py-5 px-[clamp(16px,4vw,40px)] min-w-0">
-          <p className="font-['Cormorant_Garamond',sans-serif] font-light text-ink/85 tracking-[-0.02em] leading-[1.2] text-[clamp(20px,4.3vw,34px)] text-center">
+        <div className="w-full max-w-[1280px] mx-auto py-2 md:py-[10px] px-[clamp(16px,4vw,40px)] min-w-0">
+          <p className="font-['Cormorant_Garamond',sans-serif] font-light text-ink/85 tracking-[-0.02em] leading-[1.2] text-[clamp(10px,2.15vw,17px)] text-center">
             Давайте начнём работать вместе
             <span className="inline-block ml-1 align-baseline opacity-70">↗</span>
           </p>
