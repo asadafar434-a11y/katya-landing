@@ -490,7 +490,7 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
 
 function ProblemsSection() {
   return (
-    <div className={`relative z-[1] mt-1 md:mt-2 flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
+    <div className={`relative z-[1] mt-[28px] md:mt-[56px] flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
       <div className="flex flex-col lg:flex-row items-start w-full gap-6 lg:gap-0">
         <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full lg:w-1/2 lg:pr-[40px] min-w-0">
           <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Проблемы на объекте</p>
