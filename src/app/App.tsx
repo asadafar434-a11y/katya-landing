@@ -1227,7 +1227,7 @@ function HomePage() {
     <div className="bg-white flex flex-col items-center relative w-full min-h-screen overflow-x-hidden">
       <Header />
 
-      <div className="flex flex-col gap-[48px] md:gap-[80px] items-center w-full">
+      <div className="flex flex-col items-center w-full space-y-[48px] md:space-y-[80px]">
         <HeroSection />
         <AboutSection />
         <ProblemsSection />
