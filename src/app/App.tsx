@@ -379,11 +379,11 @@ function CategoryCard({ icon, title, subtitle }: {
   icon: React.ReactNode; title: string; subtitle: string;
 }) {
   return (
-    <div className="h-full w-full min-h-[140px] min-w-px relative">
-      <div className="content-stretch flex flex-col gap-[8px] items-start p-[16px] md:p-[24px] relative w-full h-full">
+    <div className="h-full w-full min-h-[164px] md:min-h-[176px] min-w-px relative">
+      <div className="content-stretch flex flex-col gap-[10px] md:gap-[12px] items-start p-[16px] md:p-[24px] relative w-full h-full">
         {icon}
-        <p className="font-['Cormorant_Garamond',sans-serif] font-medium leading-[normal] text-ink text-[16px] md:text-[20px]">{title}</p>
-        <p className="font-['Raleway',sans-serif] font-light leading-[normal] text-caption text-[10px] md:text-[12px]">{subtitle}</p>
+        <p className="font-['Cormorant_Garamond',sans-serif] font-medium leading-[1.2] text-ink text-[16px] md:text-[20px] break-words">{title}</p>
+        <p className="font-['Raleway',sans-serif] font-light leading-[1.35] text-caption text-[10px] md:text-[12px] break-words">{subtitle}</p>
       </div>
     </div>
   );
@@ -491,12 +491,12 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
 function ProblemsSection() {
   return (
     <div className={`flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
-      <div className="flex flex-col md:flex-row items-start w-full gap-6 md:gap-0">
-        <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full md:w-1/2 md:pr-[40px] min-w-0">
+      <div className="flex flex-col lg:flex-row items-start w-full gap-6 lg:gap-0">
+        <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full lg:w-1/2 lg:pr-[40px] min-w-0">
           <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Проблемы на объекте</p>
           <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[clamp(22px,4vw,36px)]">С чем сталкиваются строящиеся объекты</p>
         </div>
-        <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full md:w-1/2 md:pl-[40px] min-w-0">
+        <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full lg:w-1/2 lg:pl-[40px] min-w-0">
           <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Решения Интерио</p>
           <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[clamp(22px,4vw,36px)]">Сопровождаем проект от А до Я</p>
         </div>
