@@ -490,8 +490,8 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
 
 function ProblemsSection() {
   return (
-    <div className={`relative z-[1] mt-[28px] md:mt-[56px] flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
-      <div className="flex flex-col lg:flex-row items-start w-full gap-6 lg:gap-0">
+    <div className={`relative z-[2] isolate bg-white mt-[32px] md:mt-[64px] flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
+      <div className="relative z-[2] bg-white flex flex-col lg:flex-row items-start w-full gap-6 lg:gap-0">
         <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full lg:w-1/2 lg:pr-[40px] min-w-0">
           <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Проблемы на объекте</p>
           <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[clamp(22px,4vw,36px)]">С чем сталкиваются строящиеся объекты</p>
