@@ -379,8 +379,8 @@ function CategoryCard({ icon, title, subtitle }: {
   icon: React.ReactNode; title: string; subtitle: string;
 }) {
   return (
-    <div className="h-full w-full min-h-[164px] md:min-h-[176px] min-w-px relative">
-      <div className="content-stretch flex flex-col gap-[10px] md:gap-[12px] items-start p-[16px] md:p-[24px] relative w-full h-full">
+    <div className="w-full min-h-[164px] md:min-h-[176px] min-w-px relative">
+      <div className="content-stretch flex flex-col gap-[10px] md:gap-[12px] items-start p-[16px] md:p-[24px] relative w-full">
         {icon}
         <p className="font-['Cormorant_Garamond',sans-serif] font-medium leading-[1.2] text-ink text-[16px] md:text-[20px] break-words">{title}</p>
         <p className="font-['Raleway',sans-serif] font-light leading-[1.35] text-caption text-[10px] md:text-[12px] break-words">{subtitle}</p>
@@ -402,7 +402,7 @@ function AboutSection() {
         <p className="font-['Raleway',sans-serif] font-semibold leading-[normal] text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Поставляем для</p>
         <p className="font-['Cormorant_Garamond',sans-serif] font-light leading-[1.2] text-ink text-[26px] md:text-[36px]">Коммерческих и социальных объектов</p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 w-full items-stretch border border-[#eaeaea] divide-x divide-y divide-[#eaeaea]">
+      <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-fr w-full items-stretch border border-[#eaeaea] divide-x divide-y divide-[#eaeaea]">
         <CategoryCard icon={<GraduationCap {...iconProps} />} title="Образование" subtitle="школы, ВУЗы, детсады" />
         <CategoryCard icon={<Building2 {...iconProps} />} title="Медицина" subtitle="клиники, больницы, лаборатории" />
         <CategoryCard icon={<BriefcaseBusiness {...iconProps} />} title="Офисы" subtitle="БЦ, коворкинги, open space" />
@@ -490,7 +490,7 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
 
 function ProblemsSection() {
   return (
-    <div className={`flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
+    <div className={`relative z-[1] mt-1 md:mt-2 flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
       <div className="flex flex-col lg:flex-row items-start w-full gap-6 lg:gap-0">
         <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full lg:w-1/2 lg:pr-[40px] min-w-0">
           <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Проблемы на объекте</p>
