@@ -490,7 +490,7 @@ function ProblemRow({ num, prob, sol, Icon }: { num: string; prob: string; sol: 
 
 function ProblemsSection() {
   return (
-    <div className={`relative z-[2] isolate bg-white mt-[32px] md:mt-[64px] flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
+    <div className={`relative z-[2] isolate bg-white mt-0 flex flex-col gap-8 md:gap-[56px] items-start py-[20px] md:py-[40px] ${CONTAINER}`}>
       <div className="relative z-[2] bg-white flex flex-col lg:flex-row items-start w-full gap-6 lg:gap-0">
         <div className="flex flex-col gap-3 md:gap-[20px] items-start w-full lg:w-1/2 lg:pr-[40px] min-w-0">
           <p className="font-['Raleway',sans-serif] font-semibold text-[11px] md:text-[12px] text-caption tracking-[1px] uppercase">Проблемы на объекте</p>
@@ -856,8 +856,8 @@ function TeamSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-6 sm:gap-y-7 md:gap-[12px] pt-2 md:pt-[20px] w-full items-start">
           {members.map(({ img, name, role, phone, email }) => (
             <div key={name} className="flex flex-col gap-[8px] items-start h-full">
-              <div className="h-[200px] md:h-[368px] w-full overflow-hidden">
-                <img alt="" className="w-full h-full object-cover" src={img} />
+              <div className="h-[240px] md:h-[368px] w-full overflow-hidden bg-[#f5f5f5]">
+                <img alt="" className="w-full h-full object-contain object-top md:object-cover md:object-center" src={img} />
               </div>
               <div className="flex flex-col gap-[3px] md:gap-[2px] items-start w-full">
                 <p className="font-['Raleway',sans-serif] font-light text-[10px] md:text-[12px] leading-[1.35] w-full text-caption min-h-[18px] md:min-h-[34px]">
